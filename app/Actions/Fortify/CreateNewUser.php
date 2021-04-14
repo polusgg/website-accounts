@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
@@ -28,6 +29,7 @@ class CreateNewUser implements CreatesNewUsers
                 'string',
                 'between:3,16',
                 'regex:/^[ 0-9a-zA-Z\x{00c0}-\x{00ff}\x{0400}-\x{045f}\x{3131}-\x{318e}\x{ac00}-\x{d7a3}]{3,16}$/u',
+                Rule::notIn(config('app.blocked_names')),
                 'unique:users',
             ],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

@@ -136,6 +136,7 @@ return [
     'custom' => [
         'display_name' => [
             'regex' => 'Display names can only contain alphanumeric characters and spaces.',
+            'not_in' => 'That display name is reserved',
         ],
         'lobby_code_custom_value' => [
             'regex' => 'Lobby codes can only contain letters and must be either 4 or 6 characters long.',
