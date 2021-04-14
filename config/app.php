@@ -233,6 +233,6 @@ return [
 
     ],
 
-    'blocked_names' => explode(',', env('BLOCKED_DISPLAY_NAMES', '')),
+    'blocked_names' => env('BLOCKED_DISPLAY_NAMES', 'foo|bar'),
 
 ];
