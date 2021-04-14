@@ -17,7 +17,7 @@ Route::middleware('auth:api-private')->prefix('v1')->group(function () {
             return new UserResource($user);
         })->missing(fn(Request $request) => response()->json(new ErrorResource('User not found'), 404));
 
-        Route::post('{user}/roles', function (Request $request, User $user) {
+        Route::post('{user:discord_snowflake}/roles', function (Request $request, User $user) {
             $discordRoles = DiscordRole::all();
             $roles = app(Discord::class)->getRoles($user->discord_snowflake);
 
