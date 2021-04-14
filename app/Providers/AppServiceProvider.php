@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use URL;
 use App\Discord\Discord;
 use Illuminate\Support\ServiceProvider;
 use App\Actions\UpdatesUserConfigInformation;
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        URL::forceScheme('https');
+
         app()->singleton(UpdatesUserConfigInformation::class, UpdateUserConfigInformation::class);
     }
 }
