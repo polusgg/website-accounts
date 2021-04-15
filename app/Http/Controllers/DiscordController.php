@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\ViewErrorBag;
+use Illuminate\Support\MessageBag;
 use App\Discord\Discord;
 use App\Models\DiscordRole;
 use App\Models\User;
@@ -29,10 +31,16 @@ class DiscordController extends Controller
 
         $discord = Socialite::driver('discord')->user();
 
-        // TODO:
-        // 1. Error handling and HTTP code checks
-        // 2. Check if a user already has the given Discord account connected
-        // $user = User::firstOrFail(['discord_snowflake' => $discord->id]);
+        if (User::where('discord_snowflake', $discord->id)->exists()) {
+            $bag = new ViewErrorBag();
+            $errors = new MessageBag();
+
+            $errors->add('discord_login', 'Another user has already connected that Discord account');
+            $bag->put('default', $errors);
+            session()->flash('errors', $bag);
+
+            return redirect()->route('profile.show');
+        }
 
         $discordRoles = DiscordRole::all();
         $roles = app(Discord::class)->getRoles($discord->id);

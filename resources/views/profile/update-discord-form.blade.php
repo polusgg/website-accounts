@@ -64,9 +64,14 @@
                 </x-jet-dialog-modal>
             @else
                 <div class="flex items-center">
-                    <a href="{{ route('discord.connect') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                        {{ __('Connect your Discord account') }}
-                    </a>
+                    <div class="flex flex-col">
+                        <div class="w-full">
+                            <a href="{{ route('discord.connect') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                {{ __('Connect your Discord account') }}
+                            </a>
+                        </div>
+                        <x-jet-input-error for="discord_login" class="mt-2" />
+                    </div>
                 </div>
             @endif
         </div>
