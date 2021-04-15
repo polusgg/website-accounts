@@ -19,6 +19,8 @@
         <meta property="twitter:description" content="Play with your friends on the world's best modded Among Us server!">
         <meta property="twitter:image" content="https://static.polus.gg/images/banners/banner_plain.png">
 
+        <link rel="icon" href="https://static.polus.gg/images/logos/polus/favicon.ico">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
