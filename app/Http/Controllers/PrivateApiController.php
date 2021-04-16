@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\ErrorResource;
 use App\Http\Resources\SuccessResource;
 use Str;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PrivateApiController extends Controller
@@ -35,7 +36,7 @@ class PrivateApiController extends Controller
         return new SuccessResource();
     }
 
-    public function logKick($id)
+    public function logKick(Request $request)
     {
         $gameUuid = $request->input('game_uuid');
 
