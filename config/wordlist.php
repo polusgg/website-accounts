@@ -132,6 +132,7 @@ $codes = [
     'orai',
     'oral',
     'orgy',
+    'otto',
     'piky',
     'piss',
     'pisz',
@@ -523,7 +524,7 @@ $codes = [
 ];
 
 $names = array_unique(array_merge($codes, [
-    // Display names
+    'ottomated',
 ]), SORT_REGULAR);
 
 return [

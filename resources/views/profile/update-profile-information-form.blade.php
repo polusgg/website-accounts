@@ -65,6 +65,12 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="email_confirmation" value="{{ __('Confirm Email') }}" />
+            <x-jet-input id="email_confirmation" type="email" class="mt-1 block w-full" wire:model.defer="state.email_confirmation" />
+            <x-jet-input-error for="email_confirmation" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">

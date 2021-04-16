@@ -40,6 +40,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
             ],
+            'email_confirmation' => [
+                Rule::requiredIf(auth()->user()->email !== $input['email']),
+                'same:email',
+                'string',
+                'email',
+                'max:255',
+            ],
             'photo' => [
                 'nullable',
                 'mimes:jpg,jpeg,png',
