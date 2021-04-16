@@ -1,28 +1,23 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DiscordController;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/', function () {
-    // return view('welcome');
-    return redirect(route('dashboard'));
+Route::get('dashboard', [HomeController::class, 'dashboard'])
+    ->middleware(['auth:sanctum', 'verified'])
+    ->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->prefix('discord')->group(function () {
+    Route::middleware(['discord.no'])->group(function () {
+        Route::get('redirect', [DiscordController::class, 'redirectToProvider'])
+            ->name('discord.connect');
+        Route::get('callback', [DiscordController::class, 'handleProviderCallback']);
+    });
+    Route::middleware(['discord.yes'])->group(function () {
+        Route::get('join', [DiscordController::class, 'joinServer'])
+            ->name('discord.join');
+    });
 });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
-Route::get('discord/redirect', [DiscordController::class, 'redirectToProvider'])->name('discord.connect');
-Route::get('discord/callback', [DiscordController::class, 'handleProviderCallback']);
-Route::get('discord/join', [DiscordController::class, 'joinServer'])->name('discord.join');

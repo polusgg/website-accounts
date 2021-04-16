@@ -71,5 +71,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'discord.yes' => \App\Http\Middleware\DiscordIsConnected::class,
+        'discord.no' => \App\Http\Middleware\DiscordIsNotConnected::class,
     ];
 }

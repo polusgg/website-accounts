@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Rules\CanChangeUsername;
+use App\Rules\NotOffensive;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -30,9 +31,20 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'not_regex:/^' . config('app.blocked_names') . '$/i',
                 Rule::unique('users')->ignore($user->id),
                 new CanChangeUsername(),
+                new NotOffensive('names'),
             ],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($user->id),
+            ],
+            'photo' => [
+                'nullable',
+                'mimes:jpg,jpeg,png',
+                'max:1024',
+            ],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
