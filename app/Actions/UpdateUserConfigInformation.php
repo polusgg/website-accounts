@@ -18,7 +18,7 @@ class UpdateUserConfigInformation implements UpdatesUserConfigInformation
                 'string',
                 'regex:/^([a-z]{2}){2,3}$/i',
                 Rule::unique('game_perk_configs')->ignore($config->id),
-                new NotOffensive('codes'),
+                new NotOffensive('lobby code', 'codes'),
             ],
             'name_color' => [
                 'required',

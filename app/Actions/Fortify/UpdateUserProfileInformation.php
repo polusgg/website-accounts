@@ -22,6 +22,18 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         $input['display_name'] = trim($input['display_name']);
 
+        $emailRules = [
+            'required',
+            'string',
+            'email',
+            'max:255',
+            Rule::unique('users')->ignore($user->id),
+        ];
+
+        if (auth()->user()->email !== $input['email']) {
+            array_push($emailRules, 'confirmed');
+        }
+
         Validator::make($input, [
             'display_name' => [
                 'required',
@@ -31,22 +43,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'not_regex:/^' . config('app.blocked_names') . '$/i',
                 Rule::unique('users')->ignore($user->id),
                 new CanChangeUsername(),
-                new NotOffensive('names'),
+                new NotOffensive('display name', 'names'),
             ],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore($user->id),
-            ],
-            'email_confirmation' => [
-                Rule::requiredIf(auth()->user()->email !== $input['email']),
-                'same:email',
-                'string',
-                'email',
-                'max:255',
-            ],
+            'email' => $emailRules,
             'photo' => [
                 'nullable',
                 'mimes:jpg,jpeg,png',

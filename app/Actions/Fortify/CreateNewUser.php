@@ -31,7 +31,7 @@ class CreateNewUser implements CreatesNewUsers
                 'regex:/^[ 0-9a-zA-Z\x{00c0}-\x{00ff}\x{0400}-\x{045f}\x{3131}-\x{318e}\x{ac00}-\x{d7a3}]{3,16}$/u',
                 'not_regex:/^' . config('app.blocked_names') . '$/i',
                 'unique:users',
-                new NotOffensive('names'),
+                new NotOffensive('display name', 'names'),
             ],
             'email' => ['required', 'string', 'email', 'confirmed', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),

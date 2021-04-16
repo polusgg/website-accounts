@@ -13,8 +13,10 @@ class NotOffensive implements Rule
      *
      * @return void
      */
-    public function __construct(string $listName)
-    {
+    public function __construct(
+        protected string $fieldName,
+        string $listName,
+    ) {
         $this->list = collect(config("wordlist.$listName", []));
     }
 
@@ -37,6 +39,6 @@ class NotOffensive implements Rule
      */
     public function message()
     {
-        return "That word is not allowed.";
+        return "That $this->fieldName is not allowed.";
     }
 }
