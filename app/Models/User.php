@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Str;
 use App\Discord\Discord;
+use Str;
+use Crypt;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,6 +58,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_creator' => 'boolean',
         'name_change_available_at' => 'datetime',
         'email_verified_at' => 'datetime',
+        'discord_token' => 'encrypted',
+        'discord_refresh_token' => 'encrypted',
         'discord_expires_at' => 'datetime',
     ];
 
@@ -200,8 +203,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getDiscordTokenAttribute($token)
     {
-        if ($token == null || Carbon::now()->lt(Carbon::parse($this->discord_expires_at))) {
-            return $token;
+        if ($token == null) {
+            return null;
+        }
+
+        if (Carbon::now()->lt(Carbon::parse($this->discord_expires_at))) {
+            return \Crypt::decryptString($token);
         }
 
         $response = $this->refreshDiscordToken();

@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
             $table->string('discord_snowflake')->unique()->nullable();
-            $table->string('discord_token')->nullable();
-            $table->string('discord_refresh_token')->nullable();
+            $table->text('discord_token')->nullable();
+            $table->text('discord_refresh_token')->nullable();
             $table->timestamp('discord_expires_at')->nullable();
             $table->string('api_token', 60)->unique();
             $table->timestamps();
