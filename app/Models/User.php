@@ -210,7 +210,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getDiscordTokenAttribute($token)
     {
-        if ($token == null) {
+        if (empty($token)) {
             return null;
         }
 

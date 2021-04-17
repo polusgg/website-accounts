@@ -30,7 +30,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             Rule::unique('users')->ignore($user->id),
         ];
 
-        if (auth()->user()->email !== $input['email']) {
+        if (strtolower(auth()->user()->email) !== strtolower($input['email'])) {
             array_push($emailRules, 'confirmed');
         }
 
@@ -57,8 +57,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->updateProfilePhoto($input['photo']);
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (strtolower($input['email']) !== strtolower($user->email) && $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([

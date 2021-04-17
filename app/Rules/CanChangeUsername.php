@@ -30,7 +30,7 @@ class CanChangeUsername implements Rule
 
         $user->fresh();
 
-        return $user->display_name == $value || Carbon::now()->gte($user->name_change_available_at);
+        return strtolower($user->display_name) == strtolower($value) || Carbon::now()->gte($user->name_change_available_at);
     }
 
     /**

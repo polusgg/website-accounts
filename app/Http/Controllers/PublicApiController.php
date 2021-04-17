@@ -6,26 +6,24 @@ use App\Models\User;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\ErrorResource;
 use Hash;
+use Validator;
 use Illuminate\Http\Request;
 
 class PublicApiController extends Controller
 {
     public function getToken(Request $request)
     {
-        $email = $request->header('Email');
+        $validator = Validator::make($request->post(), [
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
 
-        if (empty($email)) {
-            return response()->json(new ErrorResource('Unauthenticated.'), 401);
-        }
+        if (!$validator->fails()) {
+            $user = User::where('email', $request->post('email'))->first();
 
-        $user = User::where('email', $email)->first();
-
-        if (is_null($user)) {
-            return response()->json(new ErrorResource('Unauthenticated.'), 401);
-        }
-
-        if (Hash::check($request->bearerToken(), $user->password)) {
-            return new UserResource($user);
+            if (Hash::check($request->post('password'), $user?->password)) {
+                return new UserResource($user);
+            }
         }
 
         return response()->json(new ErrorResource('Unauthenticated.'), 401);
@@ -33,20 +31,22 @@ class PublicApiController extends Controller
 
     public function checkToken(Request $request)
     {
-        $clientId = $request->header('Client-ID');
+        $data = [
+            'client_id' => $request->header('Client-ID'),
+            'client_token' => $request->bearerToken(),
+        ];
 
-        if (empty($clientId)) {
-            return response()->json(new ErrorResource('Unauthenticated.'), 401);
-        }
+        $validator = Validator::make($data, [
+            'client_id' => ['required', 'string', 'uuid'],
+            'client_token' => ['required', 'string'],
+        ]);
 
-        $user = User::where('uuid', $clientId)->first();
+        if (!$validator->fails()) {
+            $user = User::where('uuid', $data['client_id'])->first();
 
-        if (is_null($user)) {
-            return response()->json(new ErrorResource('Unauthenticated.'), 401);
-        }
-
-        if ($user->api_token == $request->bearerToken()) {
-            return new UserResource($user);
+            if ($user?->api_token === $data['client_token']) {
+                return new UserResource($user);
+            }
         }
 
         return response()->json(new ErrorResource('Unauthenticated.'), 401);

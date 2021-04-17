@@ -38,19 +38,19 @@ class PrivateApiController extends Controller
 
     public function logKick(Request $request)
     {
-        $gameUuid = $request->input('game_uuid');
+        $gameUuid = $request->post('game_uuid');
 
         if (!Str::isUuid($gameUuid)) {
             return response()->json(new ErrorResource('Missing or invalid game_uuid'), 400);
         }
 
-        $actorUuid = $request->input('actor_uuid');
+        $actorUuid = $request->post('actor_uuid');
 
         if (!Str::isUuid($actorUuid)) {
             return response()->json(new ErrorResource('Missing or invalid actor_uuid'), 400);
         }
 
-        $targetUuid = $request->input('target_uuid');
+        $targetUuid = $request->post('target_uuid');
 
         if (!Str::isUuid($targetUuid)) {
             return response()->json(new ErrorResource('Missing or invalid target_uuid'), 400);
@@ -74,7 +74,7 @@ class PrivateApiController extends Controller
         $log = new KickBanLog();
 
         $log->game_uuid = $gameUuid;
-        $log->reason = $request->input('reason');
+        $log->reason = $request->post('reason');
 
         $log->actingUser()->associate($actor);
         $log->targetUser()->associate($target);
@@ -88,19 +88,19 @@ class PrivateApiController extends Controller
 
     public function logBan(Request $request)
     {
-        $gameUuid = $request->input('game_uuid');
+        $gameUuid = $request->post('game_uuid');
 
         if (!Str::isUuid($gameUuid)) {
             return response()->json(new ErrorResource('Missing or invalid game_uuid'), 400);
         }
 
-        $actorUuid = $request->input('actor_uuid');
+        $actorUuid = $request->post('actor_uuid');
 
         if (!Str::isUuid($actorUuid)) {
             return response()->json(new ErrorResource('Missing or invalid actor_uuid'), 400);
         }
 
-        $targetUuid = $request->input('target_uuid');
+        $targetUuid = $request->post('target_uuid');
 
         if (!Str::isUuid($targetUuid)) {
             return response()->json(new ErrorResource('Missing or invalid target_uuid'), 400);
@@ -110,7 +110,7 @@ class PrivateApiController extends Controller
             return response()->json(new ErrorResource('Missing duration'), 400);
         }
 
-        $duration = Str::of($request->input('duration'))->match('/([1-9][0-9]*[w|d|h]?)/i');
+        $duration = Str::of($request->post('duration'))->match('/([1-9][0-9]*[w|d|h]?)/i');
 
         if ($duration->isEmpty()) {
             return response()->json(new ErrorResource('Invalid duration format'), 400);
@@ -152,7 +152,7 @@ class PrivateApiController extends Controller
         $log->game_uuid = $gameUuid;
         $log->is_ban = true;
         $log->banned_until = Carbon::now()->addHours($hours);
-        $log->reason = $request->input('reason');
+        $log->reason = $request->post('reason');
 
         $log->actingUser()->associate($actor);
         $log->targetUser()->associate($target);
