@@ -4,7 +4,7 @@
         <p>Welcome to your Polus.gg account!</p>
     </div>
 
-    @if (isset(auth()->user()->discord_token))
+    @if (auth()->user()->is_discord_connected)
         @if (!auth()->user()->is_in_polus_discord)
             <div class="mt-6 flex items-center justify-center">
                 <a href="{{ route('discord.join') }}" class="inline-flex items-center px-4 py-2 bg-green-400 border border-transparent rounded-md font-semibold text-sm font-bold text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-600 focus:outline-none focus:border-green-600 focus:ring focus:ring-green-500 disabled:opacity-25 transition shadow-lg">

@@ -9,7 +9,7 @@
 
     <x-slot name="content">
         <div class="space-y-5">
-            @if ($this->isDiscordConnected)
+            @if ($this->user->is_discord_connected)
                 <div class="max-w-xl text-base text-gray-600">
                     <p>{{ __('Logged in as') }} <span class="font-bold">{{ $this->user->discord_username }}</span></p>
                 </div>
@@ -29,7 +29,7 @@
                 </div>
             @endif
 
-            @if ($this->isDiscordConnected)
+            @if ($this->user->is_discord_connected)
                 <div class="flex items-center">
                     @if (!$this->user->is_in_polus_discord)
                         <x-jet-button wire:click="joinDiscord" wire:loading.attr="disabled" class="mr-2">

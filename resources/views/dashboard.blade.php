@@ -8,14 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                {{-- <x-jet-welcome /> --}}
                 <div class="py-10 px-6 sm:px-20 bg-white border-b border-gray-200">
                     <div class="text-2xl flex flex-shrink-0 items-center justify-center">
-                        <x-jet-application-mark class="h-7 w-7 mr-3" />
                         <p>Welcome to your Polus.gg account</p>
                     </div>
 
-                    @if (isset(auth()->user()->discord_token))
+                    @if (auth()->user()->is_discord_connected)
                         @if (!auth()->user()->is_in_polus_discord)
                             <div class="mt-6 flex items-center justify-center">
                                 <a href="{{ route('discord.join') }}" class="inline-flex items-center px-4 py-2 bg-green-400 border border-transparent rounded-md font-semibold text-sm font-bold text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-600 focus:outline-none focus:border-green-600 focus:ring focus:ring-green-500 disabled:opacity-25 transition shadow-lg">
@@ -32,7 +30,7 @@
                                 {{ __('Connect your Discord account') }}
                             </a>
                         </div>
-                        <div class="mt-6 text-gray-500">
+                        <div class="mt-6 text-gray-500 text-center">
                             To unlock the full experience of Polus.gg, we highly recommend connecting your Discord account. Connecting your Discord account is a requirement in order to access all of your exclusive in-game perks if you are a Content Creator or a Patreon subscriber. If you are not already supporting Polus.gg and would like to unlock some of these perks, you can subscribe to our <a href="https://patreon.com/polus" target="_blank" class="font-semibold underline hover:text-red-500 focus:text-red-700">Patreon</a>
                         </div>
                     @endif
@@ -269,16 +267,14 @@
                                 </ul>
                             </div>
 
-                            <div class="hidden md:flex flex-col mt-3 justify-center items-center text-sm font-bold text-gray-50">
+                            <div class="hidden md:flex flex-col mt-3 justify-center items-center text-xs font-bold text-gray-50">
                                 <p>69</p>
-                                <p>&#x2661; codyphobe</p>
                             </div>
                         </div>
                     @else
                         <div class="hidden md:block border-gray-200 border-t-0 md:border-t border-l-0 md:border-l">
-                            <div class="flex flex-col h-full justify-center items-center text-sm font-bold text-gray-50">
+                            <div class="flex flex-col h-full justify-center items-center text-xs font-bold text-gray-50">
                                 <p>69</p>
-                                <p>&#x2661; codyphobe</p>
                             </div>
                         </div>
                     @endif

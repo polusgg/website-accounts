@@ -12,15 +12,6 @@ class UpdateDiscordForm extends Component
 {
     public $confirmingDiscordDisconnection = false;
 
-    public $isDiscordConnected = false;
-
-    public function mount()
-    {
-        if (isset($this->user->discord_token)) {
-            $this->isDiscordConnected = true;
-        }
-    }
-
     public function joinDiscord()
     {
         return redirect()->route('discord.join');

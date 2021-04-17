@@ -2,11 +2,12 @@
 
 namespace App\Discord;
 
+use Http;
 use GuzzleHttp\Client as HttpClient;
 
 class Discord
 {
-    protected $baseUrl = 'https://discordapp.com/api';
+    protected $baseUrl = 'https://discordapp.com/api/v8';
 
     public function __construct(
         protected HttpClient $http,
@@ -15,66 +16,65 @@ class Discord
     ) {
     }
 
+    public function isConnected(string $token)
+    {
+        return Http::withHeaders($this->getHeaders($token))->get($this->getUrl('oauth2/@me'))->successful();
+    }
+
     public function getUsername(string $token)
     {
-        $response = $this->requestClient('GET', 'users/@me', $token);
+        $response = Http::withHeaders($this->getHeaders($token))
+                        ->get($this->getUrl('users/@me'));
 
-        return sprintf('%s#%s', $response['username'], $response['discriminator']);
+        return $response->ok() ? sprintf('%s#%s', $response['username'], $response['discriminator']) : null;
     }
 
     public function joinGuild(string $userId, string $accessToken)
     {
-        $this->requestBot('PUT', sprintf('guilds/%s/members/%s', $this->guildId, $userId), [
-            'access_token' => $accessToken,
-        ]);
+        Http::withHeaders($this->getHeaders($this->botToken, 'Bot'))
+            ->put($this->getUrl(sprintf('guilds/%s/members/%s', $this->guildId, $userId)), [
+                'access_token' => $accessToken,
+            ]);
     }
 
     public function getGuilds(string $token)
     {
-        return collect($this->requestClient('GET', 'users/@me/guilds', $token));
+        $response = Http::withHeaders($this->getHeaders($token))
+                        ->get($this->getUrl('users/@me/guilds'));
+
+        return $response->ok() ? $response->collect() : collect();
     }
 
     public function isInGuild(string $token, string $guildId)
     {
-        return $this->getGuilds($token)->contains(fn($guild) => $guild['id'] == $guildId);
+        return $this->getGuilds($token)
+                    ->contains(fn($guild) => $guild['id'] == $guildId);
     }
 
     public function getRoles(string $userId)
     {
-        return collect($this->requestBot('GET', sprintf('guilds/%s/members/%s', $this->guildId, $userId))['roles'] ?? []);
+        $response = Http::withHeaders($this->getHeaders($this->botToken, 'Bot'))
+                        ->get($this->getUrl(sprintf('guilds/%s/members/%s', $this->guildId, $userId)));
+
+        return collect($response->ok() ? $response->json()['roles'] : []);
     }
 
     public function hasRole(string $userId, string $roleId)
     {
-        return $this->getRoles($userId)->contains(fn($role) => $role['id'] == $roleId);
+        return $this->getRoles($userId)
+                    ->contains(fn($role) => $role['id'] == $roleId);
     }
 
-    protected function requestClient(string $method, string $endpoint, string $token, array $data = [])
+    protected function getUrl(string $endpoint)
     {
-        return $this->request($method, $endpoint, 'Bearer ' . $token, $data);
+        return sprintf('%s/%s', rtrim($this->baseUrl, '/'), ltrim($endpoint, '/'));
     }
 
-    protected function requestBot(string $method, string $endpoint, array $data = [])
+    protected function getHeaders(string $token, string $tokenPrefix = 'Bearer')
     {
-        return $this->request($method, $endpoint, 'Bot ' . $this->botToken, $data);
-    }
-
-    protected function request(string $method, string $endpoint, string $auth, array $data = [])
-    {
-        $url = sprintf('%s/%s', rtrim($this->baseUrl, '/'), ltrim($endpoint, '/'));
-        $body = [
-            'http_errors' => false,
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => $auth,
-            ],
-        ] + $data;
-
-        $response = $this->http->request($method, $url, $body);
-        $response = json_decode($response->getBody()->getContents(), true);
-
-        // TODO: Return an array with response code and body json
-        return $response;
-        // return collect($response);
+        return [
+            'Accept' => 'application/json',
+            'Authorization' => "$tokenPrefix $token",
+        ];
     }
 }

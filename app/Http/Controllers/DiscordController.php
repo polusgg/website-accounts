@@ -24,9 +24,10 @@ class DiscordController extends Controller
             return redirect()->route('profile.show');
         }
 
+        $user = auth()->user();
         $discord = Socialite::driver('discord')->user();
 
-        if (User::where('discord_snowflake', $discord->id)->exists()) {
+        if (User::where('discord_snowflake', $discord->id)->where('id', '!=', $user->id)->exists()) {
             $bag = new ViewErrorBag();
             $errors = new MessageBag();
 
@@ -39,7 +40,6 @@ class DiscordController extends Controller
 
         $discordRoles = DiscordRole::all();
         $roles = app(Discord::class)->getRoles($discord->id);
-        $user = auth()->user();
 
         $user->discord_snowflake = $discord->id;
         $user->discord_token = $discord->token;
@@ -63,7 +63,7 @@ class DiscordController extends Controller
     {
         $user = auth()->user();
 
-        if (isset($user->discord_token)) {
+        if ($user->is_discord_connected) {
             app(Discord::class)->joinGuild($user->discord_snowflake, $user->discord_token);
         }
 

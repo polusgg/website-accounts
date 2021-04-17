@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Discord\Discord;
+use Http;
 use Str;
 use Crypt;
 use Carbon\Carbon;
@@ -191,6 +192,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(GamePerkConfig::class);
     }
 
+    public function getIsDiscordConnectedAttribute()
+    {
+        return !empty($this->discord_token)
+            && app(Discord::class)->isConnected($this->discord_token);
+    }
+
     public function getDiscordUsernameAttribute()
     {
         return app(Discord::class)->getUsername($this->discord_token);
@@ -208,14 +215,18 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         if (Carbon::now()->lt(Carbon::parse($this->discord_expires_at))) {
-            return \Crypt::decryptString($token);
+            return Crypt::decryptString($token);
         }
 
         $response = $this->refreshDiscordToken();
 
+        if (!$response->successful()) {
+            return '';
+        }
+
         $this->discord_token = $response['access_token'];
-        $user->discord_refresh_token = $response['refresh_token'];
-        $user->discord_expires_at = Carbon::now()->addSeconds($response['expires_in']);
+        $this->discord_refresh_token = $response['refresh_token'];
+        $this->discord_expires_at = Carbon::now()->addSeconds($response['expires_in']);
 
         $this->save();
 
@@ -224,26 +235,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function refreshDiscordToken()
     {
-        $client = new \GuzzleHttp\Client;
-        $response = $client->get(
-            'https://discordapp.com/api/oauth2/token',
-            [
-                'http_errors' => false,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Conent-Type' => 'application/x-www-form-urlencoded',
-                ],
-                'form_params' => [
-                    'client_id' => config('services.discord.client_id'),
-                    'client_secret' => config('services.discord.client_secret'),
-                    'grant_type' => 'refresh_token',
-                    'refresh_token' => $this->discord_refresh_token,
-                    'redirect_uri' => config('services.discord.redirect'),
-                    'scope' => 'identify guilds guilds.join',
-                ],
-            ],
-        );
-
-        return json_decode($response->getBody()->getContents(), true);
+        return Http::withHeaders([
+            'Accept' => 'application/json',
+        ])->asForm()->post('https://discordapp.com/api/v8/oauth2/token', [
+            'client_id' => config('services.discord.client_id'),
+            'client_secret' => config('services.discord.client_secret'),
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $this->discord_refresh_token,
+        ]);
     }
 }
