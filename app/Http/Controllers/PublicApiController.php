@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\ErrorResource;
-use App\Http\Resources\SuccessResource;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -25,11 +25,7 @@ class PublicApiController extends Controller
         }
 
         if (Hash::check($request->bearerToken(), $user->password)) {
-            return new SuccessResource([
-                'client_id' => $user->uuid,
-                'client_token' => $user->api_token,
-                'display_name' => $user->display_name,
-            ]);
+            return new UserResource($user);
         }
 
         return response()->json(new ErrorResource('Unauthenticated.'), 401);
@@ -50,7 +46,7 @@ class PublicApiController extends Controller
         }
 
         if ($user->api_token == $request->bearerToken()) {
-            return new SuccessResource(['display_name' => $user->display_name]);
+            return new UserResource($user);
         }
 
         return response()->json(new ErrorResource('Unauthenticated.'), 401);

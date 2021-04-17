@@ -17,8 +17,8 @@ class UserResource extends JsonResource
         return [
             'success' => true,
             'data' => [
-                'uuid' => $this->uuid,
-                'api_token' => $this->api_token,
+                'client_id' => $this->uuid,
+                'client_token' => $this->api_token,
                 'display_name' => $this->display_name,
                 'banned_until' => $this->is_banned ? $this->activeBan->banned_until : null,
                 'perks' => GamePerkResource::collection($this->gamePerks),
