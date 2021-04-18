@@ -21,7 +21,7 @@ class PublicApiController extends Controller
         if (!$validator->fails()) {
             $user = User::where('email', $request->post('email'))->first();
 
-            if (Hash::check($request->post('password'), $user?->password)) {
+            if (!empty($user?->email_verified_at) && Hash::check($request->post('password'), $user?->password)) {
                 return new UserResource($user);
             }
         }
@@ -44,7 +44,7 @@ class PublicApiController extends Controller
         if (!$validator->fails()) {
             $user = User::where('uuid', $data['client_id'])->first();
 
-            if ($user?->api_token === $data['client_token']) {
+            if (!empty($user?->email_verified_at) && $user?->api_token === $data['client_token']) {
                 return new UserResource($user);
             }
         }

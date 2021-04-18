@@ -106,6 +106,10 @@ class PrivateApiController extends Controller
             return response()->json(new ErrorResource('Missing or invalid target_uuid'), 400);
         }
 
+        if (!$request->filled('reason')) {
+            return response()->json(new ErrorResource('Missing reason'), 400);
+        }
+
         if (!$request->filled('duration')) {
             return response()->json(new ErrorResource('Missing duration'), 400);
         }
@@ -114,10 +118,6 @@ class PrivateApiController extends Controller
 
         if ($duration->isEmpty()) {
             return response()->json(new ErrorResource('Invalid duration format'), 400);
-        }
-
-        if (!$request->filled('reason')) {
-            return response()->json(new ErrorResource('Missing reason'), 400);
         }
 
         $actor = User::where('uuid', $actorUuid)->first();
