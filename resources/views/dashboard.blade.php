@@ -267,14 +267,14 @@
                                 </ul>
                             </div>
 
-                            <div class="hidden md:flex flex-col mt-3 justify-center items-center text-xs font-bold text-gray-50">
-                                <p>69</p>
+                            <div class="hidden md:flex flex-col mt-3 justify-center items-center text-xs font-bold">
+                                <p class="p-2 text-transparent hover:text-gray-400">69</p>
                             </div>
                         </div>
                     @else
                         <div class="hidden md:block border-gray-200 border-t-0 md:border-t border-l-0 md:border-l">
-                            <div class="flex flex-col h-full justify-center items-center text-xs font-bold text-gray-50">
-                                <p>69</p>
+                            <div class="flex flex-col h-full justify-center items-center text-xs font-bold">
+                                <p class="p-3 text-transparent hover:text-gray-400">69</p>
                             </div>
                         </div>
                     @endif

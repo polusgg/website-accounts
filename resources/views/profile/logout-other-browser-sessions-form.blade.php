@@ -35,13 +35,13 @@
                             </div>
 
                             <div>
-                                <div class="text-xs text-gray-500">
-                                    {{ $session->ip_address }},
+                                <div class="text-xs text-transparent hover:text-gray-500">
+                                    {{ $session->ip_address }}<span class="text-gray-500">,</span>
 
                                     @if ($session->is_current_device)
                                         <span class="text-green-500 font-semibold">{{ __('This device') }}</span>
                                     @else
-                                        {{ __('Last active') }} {{ $session->last_active }}
+                                        <span class="text-gray-500">{{ __('Last active') }} {{ $session->last_active }}</span>
                                     @endif
                                 </div>
                             </div>
