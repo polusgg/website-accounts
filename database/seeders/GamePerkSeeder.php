@@ -15,66 +15,60 @@ class GamePerkSeeder extends Seeder
     public function run()
     {
         $perks = [
+            /**
+             * Lobby perks
+             */
             [
                 'perk_key' => 'lobby.code.custom',
                 'display_name' => 'Custom 4 or 6 letter lobby codes',
             ],
             [
-                'perk_key' => 'lobby.size.large',
-                'display_name' => 'Exclusive ability to host lobbies with up to 25 players',
+                'perk_key' => 'lobby.size.25',
+                'display_name' => 'Ability to host lobbies with up to 25 players',
             ],
             [
+                'perk_key' => 'lobby.size.50',
+                'display_name' => 'Ability to host lobbies with up to 50 players',
+            ],
+            [
+                'perk_key' => 'lobby.size.100',
+                'display_name' => 'Ability to host lobbies with up to 100 players',
+            ],
+
+            /**
+             * Player perks
+             */
+            [
                 'perk_key' => 'name.color.gold',
-                'display_name' => 'Gold player name in all lobbies (can be turned off)',
+                'display_name' => 'Among Us player name is colored gold (can be turned off)',
             ],
             [
                 'perk_key' => 'name.color.match',
-                'display_name' => 'Player name matches player color in all lobbies (can be turned off)',
+                'display_name' => 'Among Us player name color matches your player color (can be turned off)',
+            ],
+            [
+                'perk_key' => 'player.color.rgb',
+                'display_name' => 'Custom player color using an RGB color picker',
             ],
 
             /**
-             * Gamemodes
+             * Server access perks
              */
             [
-                'perk_key' => 'gamemode.all',
-                'display_name' => 'Access to all gamemodes',
+                'perk_key' => 'server.access.dev',
+                'display_name' => 'Access to development servers',
             ],
             [
-                'perk_key' => 'gamemode.slenderman',
-                'display_name' => 'Access to the Slenderman gamemode',
+                'perk_key' => 'server.access.beta',
+                'display_name' => 'Access to beta testing servers',
             ],
-            [
-                'perk_key' => 'gamemode.hot_potato',
-                'display_name' => 'Access to the Hot Potato gamemode',
-            ],
-            [
-                'perk_key' => 'gamemode.town_of_polus',
-                'display_name' => 'Access to the Town Of Polus gamemode',
-            ],
-            [
-                'perk_key' => 'gamemode.zombies',
-                'display_name' => 'Access to the Zombies gamemode',
-            ],
-            [
-                'perk_key' => 'gamemode.venteleporter',
-                'display_name' => 'Access to the Venteleporter gamemode',
-            ],
-            [
-                // Creator only
-                'perk_key' => 'gamemode.c4',
-                'display_name' => 'Access to the C4 gamemode',
-            ],
-
-            /**
-             * Creator Abilities
-             */
             [
                 'perk_key' => 'server.access.creator',
                 'display_name' => 'Access to Creator-only servers',
             ],
 
             /**
-             * Creator Manager Abilities
+             * Creator manager perks
              */
             [
                 'perk_key' => 'creator.manage',
@@ -82,7 +76,7 @@ class GamePerkSeeder extends Seeder
             ],
 
             /**
-             * Moderation Abilities
+             * Moderation perks
              */
             [
                 'perk_key' => 'mod.kick',

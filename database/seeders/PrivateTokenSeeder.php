@@ -16,6 +16,7 @@ class PrivateTokenSeeder extends Seeder
     public function run()
     {
         $tokens = [
+            ['name' => 'bot-discord', 'token' => Str::random(100)],
             ['name' => 'region-na-east', 'token' => Str::random(100)],
             ['name' => 'region-na-west', 'token' => Str::random(100)],
             ['name' => 'region-eu', 'token' => Str::random(100)],
