@@ -75,7 +75,7 @@ class RolePerkSeeder extends Seeder
         ]);
 
         // Jester
-        DiscordRole::where('role_snowflake', '820165176150065162')->firstOrFail()->gamePerks()->sync([
+        DiscordRole::where('role_snowflake', '834148003161440256')->firstOrFail()->gamePerks()->sync([
             $nameColorGold,
             $nameColorMatch,
             $playerColorRgb,
