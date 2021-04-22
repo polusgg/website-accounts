@@ -3,14 +3,12 @@
 namespace App\Discord;
 
 use Http;
-use GuzzleHttp\Client as HttpClient;
 
 class Discord
 {
     protected $baseUrl = 'https://discordapp.com/api/v8';
 
     public function __construct(
-        protected HttpClient $http,
         protected string $botToken,
         protected string $guildId,
     ) {
