@@ -26,21 +26,6 @@ class UpdateConfigForm extends Component
         $this->emit('saved');
     }
 
-    public function setNameNormal()
-    {
-        $this->state['name_color'] = 'normal';
-    }
-
-    public function setNameGold()
-    {
-        $this->state['name_color'] = 'gold';
-    }
-
-    public function setNameMatch()
-    {
-        $this->state['name_color'] = 'match';
-    }
-
     public function getUserProperty()
     {
         return auth()->user();
