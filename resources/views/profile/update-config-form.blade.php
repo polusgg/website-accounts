@@ -23,38 +23,56 @@
                         Name color options
                     </legend>
                     <div class="bg-white rounded-md -space-y-px">
-                        <label class="border-gray-200 rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer">
+                        <label class="
+                          @if ($this->state['name_color'] == 'normal') bg-indigo-50 border-indigo-200 z-10 @endif
+                          border-gray-200 rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer" wire:click="setNameNormal">
                             <input type="radio" name="name_color" value="normal" wire:model.defer="state.name_color" class="h-4 w-4 mt-0.5 cursor-pointer text-indigo-600 border-gray-300 focus:ring-indigo-500" aria-labelledby="name-color-setting-0-label" aria-describedby="name-color-setting-0-description">
                             <div class="ml-3 flex flex-col">
-                                <span id="name-color-setting-0-label" class="text-gray-700 block text-sm font-medium">
+                                <span id="name-color-setting-0-label" class="
+                                  @if ($this->state['name_color'] == 'normal') text-indigo-900 @endif
+                                  text-gray-700 block text-sm font-medium">
                                     Normal player name
                                 </span>
-                                <span id="name-color-setting-0-description" class="text-gray-500 block text-sm">
+                                <span id="name-color-setting-0-description" class="
+                                  @if ($this->state['name_color'] == 'normal') text-indigo-700 @endif
+                                  text-gray-500 block text-sm">
                                     Your in-game name will not be colored.
                                 </span>
                             </div>
                         </label>
                         @if ($this->user->hasAnyPerks('name.color.gold'))
-                            <label class="border-gray-200 relative border p-4 flex cursor-pointer">
+                            <label class="
+                              @if ($this->state['name_color'] == 'gold') bg-indigo-50 border-indigo-200 z-10 @endif
+                              border-gray-200 relative border p-4 flex cursor-pointer" wire:click="setNameGold">
                                 <input type="radio" name="name_color" value="gold" wire:model.defer="state.name_color" class="h-4 w-4 mt-0.5 cursor-pointer text-indigo-600 border-gray-300 focus:ring-indigo-500" aria-labelledby="name-color-setting-1-label" aria-describedby="name-color-setting-1-description">
                                 <div class="ml-3 flex flex-col">
-                                    <span id="name-color-setting-1-label" class="text-gray-700 block text-sm font-medium">
+                                    <span id="name-color-setting-1-label" class="
+                                      @if ($this->state['name_color'] == 'gold') text-indigo-900 @endif
+                                      text-gray-700 block text-sm font-medium">
                                         Gold player name
                                     </span>
-                                    <span id="name-color-setting-1-description" class="text-gray-500 block text-sm">
+                                    <span id="name-color-setting-1-description" class="
+                                      @if ($this->state['name_color'] == 'gold') text-indigo-700 @endif
+                                      text-gray-500 block text-sm">
                                         Your in-game name will be colored gold.
                                     </span>
                                 </div>
                             </label>
                         @endif
                         @if ($this->user->hasAnyPerks('name.color.match'))
-                            <label class="border-gray-200 rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer">
+                            <label class="
+                              @if ($this->state['name_color'] == 'match') bg-indigo-50 border-indigo-200 z-10 @endif
+                              border-gray-200 rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer" wire:click="setNameMatch">
                                 <input type="radio" name="name_color" value="match" wire:model.defer="state.name_color" class="h-4 w-4 mt-0.5 cursor-pointer text-indigo-600 border-gray-300 focus:ring-indigo-500" aria-labelledby="name-color-setting-2-label" aria-describedby="name-color-setting-2-description">
                                 <div class="ml-3 flex flex-col">
-                                    <span id="name-color-setting-2-label" class="text-gray-700 block text-sm font-medium">
+                                    <span id="name-color-setting-2-label" class="
+                                      @if ($this->state['name_color'] == 'match') text-indigo-900 @endif
+                                      text-gray-700 block text-sm font-medium">
                                         Matching player name
                                     </span>
-                                    <span id="name-color-setting-2-description" class="text-gray-500 block text-sm">
+                                    <span id="name-color-setting-2-description" class="
+                                      @if ($this->state['name_color'] == 'match') text-indigo-700 @endif
+                                      text-gray-500 block text-sm">
                                         Your in-game name will be colored to match your character color.
                                     </span>
                                 </div>
