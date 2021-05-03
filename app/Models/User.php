@@ -67,14 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'discord_expires_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = ['gamePerks'];
-
-    protected $with = ['discordRoles', 'discordRoles.gamePerks', 'activeBan', 'gamePerkConfig'];
+    protected $with = ['discordRoles', 'activeBan', 'gamePerkConfig'];
 
     public static function booted()
     {
