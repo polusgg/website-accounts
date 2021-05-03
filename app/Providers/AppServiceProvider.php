@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use URL;
 use App\Discord\Discord;
-use Illuminate\Support\ServiceProvider;
 use App\Actions\UpdatesUserConfigInformation;
 use App\Actions\UpdateUserConfigInformation;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

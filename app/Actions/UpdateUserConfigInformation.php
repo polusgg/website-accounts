@@ -9,6 +9,12 @@ use Illuminate\Validation\Rule;
 
 class UpdateUserConfigInformation implements UpdatesUserConfigInformation
 {
+    /**
+     * @param mixed $config
+     * @param array $input
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update($config, array $input)
     {
         $input['lobby_code_custom_value'] = strtoupper(trim($input['lobby_code_custom_value']));

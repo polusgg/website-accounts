@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Actions\UpdateUserConfigInformation;
+use Livewire\Component;
 
 class UpdateConfigForm extends Component
 {
-    public $state = [];
+    public array $state = [];
 
     public function mount()
     {

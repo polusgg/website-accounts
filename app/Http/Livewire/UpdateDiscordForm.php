@@ -3,14 +3,11 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Http\Request;
-use App\Discord\Discord;
-use App\Models\User;
 use Livewire\Component;
-use Socialite;
 
 class UpdateDiscordForm extends Component
 {
-    public $confirmingDiscordDisconnection = false;
+    public bool $confirmingDiscordDisconnection = false;
 
     public function joinDiscord()
     {

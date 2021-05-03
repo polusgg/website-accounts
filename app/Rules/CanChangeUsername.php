@@ -24,13 +24,14 @@ class CanChangeUsername implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $user = auth()->user();
 
         $user->fresh();
 
-        return strtolower($user->display_name) == strtolower($value) || Carbon::now()->gte($user->name_change_available_at);
+        return strtolower($user->display_name) == strtolower($value)
+            || Carbon::now()->gte($user->name_change_available_at);
     }
 
     /**
@@ -38,7 +39,7 @@ class CanChangeUsername implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         $user = auth()->user();
 

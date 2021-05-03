@@ -6,12 +6,12 @@ use App\Discord\Discord;
 use App\Models\DiscordRole;
 use App\Models\KickBanLog;
 use App\Models\User;
-use App\Http\Resources\UserResource;
 use App\Http\Resources\ErrorResource;
 use App\Http\Resources\SuccessResource;
-use Str;
+use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PrivateApiController extends Controller
 {

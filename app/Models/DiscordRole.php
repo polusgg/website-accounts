@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class DiscordRole extends Model
 {
@@ -11,32 +12,32 @@ class DiscordRole extends Model
 
     protected $with = ['gamePerks'];
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    public function cosmeticHats()
+    public function cosmeticHats(): BelongsToMany
     {
         return $this->belongsToMany(CosmeticHat::class);
     }
 
-    public function cosmeticPets()
+    public function cosmeticPets(): BelongsToMany
     {
         return $this->belongsToMany(CosmeticPet::class);
     }
 
-    public function cosmeticSkins()
+    public function cosmeticSkins(): BelongsToMany
     {
         return $this->belongsToMany(CosmeticSkin::class);
     }
 
-    public function gamePerks()
+    public function gamePerks(): BelongsToMany
     {
         return $this->belongsToMany(GamePerk::class);
     }
 
-    public function getRgbColorAttribute()
+    public function getRgbColorAttribute(): string
     {
         $color = $this->attributes['color'];
 

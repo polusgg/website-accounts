@@ -16,12 +16,12 @@ class DiscordSocialiteProvider extends AbstractProvider implements ProviderInter
 
     protected $scopeSeparator = ' ';
 
-    protected function getAuthUrl($state)
+    protected function getAuthUrl($state): string
     {
         return $this->buildAuthUrlFromBase('https://discordapp.com/api/oauth2/authorize', $state);
     }
 
-    protected function getTokenUrl()
+    protected function getTokenUrl(): string
     {
         return 'https://discordapp.com/api/oauth2/token';
     }
@@ -29,7 +29,7 @@ class DiscordSocialiteProvider extends AbstractProvider implements ProviderInter
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get(
-            'https://discordapp.com/api/users/@me',
+            'https://discord.com/api/v8/users/@me',
             [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $token,
@@ -40,7 +40,7 @@ class DiscordSocialiteProvider extends AbstractProvider implements ProviderInter
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    protected function formatAvatar(array $user)
+    protected function formatAvatar(array $user): ?string
     {
         if (empty($user['avatar'])) {
             return null;
@@ -54,7 +54,7 @@ class DiscordSocialiteProvider extends AbstractProvider implements ProviderInter
         );
     }
 
-    protected function mapUserToObject(array $user)
+    protected function mapUserToObject(array $user): User
     {
         return (new User())->setRaw($user)->map([
             'id' => $user['id'],
@@ -65,7 +65,7 @@ class DiscordSocialiteProvider extends AbstractProvider implements ProviderInter
         ]);
     }
 
-    protected function getTokenFields($code)
+    protected function getTokenFields($code): array
     {
         return array_merge(parent::getTokenFields($code), [
             'grant_type' => 'authorization_code',

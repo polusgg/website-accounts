@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Socialite;
 use App\Socialite\DiscordSocialiteProvider;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteServiceProvider extends ServiceProvider
 {

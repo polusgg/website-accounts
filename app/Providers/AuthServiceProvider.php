@@ -2,14 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use App\Models\PrivateToken;
-use Auth;
-use Hash;
-use Str;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -48,24 +46,5 @@ class AuthServiceProvider extends ServiceProvider
 
             return User::where('uuid', $uuid)->where('api_token', $request->bearerToken())->first();
         });
-
-        // Auth::viaRequest('credentials-user', function (Request $request) {
-        //     if (!$request->hasHeader('Email')) {
-        //         return null;
-        //     }
-
-        //     $email = $request->header('Email');
-        //     $user = User::where('email', $email)->first();
-
-        //     if (is_null($user)) {
-        //         return null;
-        //     }
-
-        //     if (Hash::check($request->bearerToken(), $user->password)) {
-        //         return $user;
-        //     }
-
-        //     return null;
-        // });
     }
 }

@@ -3,10 +3,11 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Collection;
 
 class NotOffensive implements Rule
 {
-    protected $list;
+    protected Collection $list;
 
     /**
      * Create a new rule instance.
@@ -27,7 +28,7 @@ class NotOffensive implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         return !$this->list->contains(strtolower($value));
     }
@@ -37,7 +38,7 @@ class NotOffensive implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return "That $this->fieldName is not allowed.";
     }

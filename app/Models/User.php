@@ -4,13 +4,16 @@ namespace App\Models;
 
 use App\Discord\Discord;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -86,7 +89,6 @@ class User extends Authenticatable implements MustVerifyEmail
         });
 
         static::updating(function ($user) {
-            // if ($user->getOriginal()['display_name'] != $user->display_name) {
             if ($user->isDirty('display_name')) {
                 $user->name_change_available_at = Carbon::now()->addSeconds(config('polus.name_change_seconds'));
             }
@@ -97,7 +99,6 @@ class User extends Authenticatable implements MustVerifyEmail
         });
 
         static::updated(function ($user) {
-            // if ($user->getOriginal()['is_creator'] != $user->is_creator) {
             if ($user->isDirty('is_creator')) {
                 $creator = DiscordRole::where('role_snowflake', config('services.discord.creator_role_id'))->first();
 
@@ -114,17 +115,17 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'uuid';
     }
 
-    public function discordRoles()
+    public function discordRoles(): BelongsToMany
     {
         return $this->belongsToMany(DiscordRole::class);
     }
 
-    public function hasAnyDiscordRoles($roles)
+    public function hasAnyDiscordRoles($roles): bool
     {
         if ($this->discordRoles->isEmpty()) {
             return false;
@@ -135,7 +136,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->discordRoles->map->display_name->intersect($roles)->count() > 0;
     }
 
-    public function hasAllDiscordRoles($roles)
+    public function hasAllDiscordRoles($roles): bool
     {
         if ($this->discordRoles->isEmpty()) {
             return false;
@@ -146,26 +147,29 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->discordRoles->map->display_name->intersect($roles)->count() == $roles->count();
     }
 
-    public function bansFrom()
+    public function bansFrom(): HasMany
     {
         return $this->hasMany(KickBanLog::class, 'acting_user_id');
     }
 
-    public function bansAgainst()
+    public function bansAgainst(): HasMany
     {
         return $this->hasMany(KickBanLog::class, 'target_user_id');
     }
 
-    public function activeBan()
+    public function activeBan(): HasOne
     {
-        return $this->hasOne(KickBanLog::class, 'target_user_id')->orderByDesc('banned_until')->latest();
+        return $this->hasOne(KickBanLog::class, 'target_user_id')
+                    ->orderByDesc('banned_until')
+                    ->latest();
     }
 
-    public function getIsBannedAttribute()
+    public function getIsBannedAttribute(): bool
     {
         $activeBan = $this->activeBan;
 
-        return is_null($activeBan) ? false : Carbon::now()->lt($activeBan->banned_until);
+        return !is_null($activeBan)
+            && Carbon::now()->lt($activeBan->banned_until);
     }
 
     public function getGamePerksAttribute()
@@ -173,42 +177,42 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->discordRoles->flatMap->gamePerks->unique('id');
     }
 
-    public function hasAnyPerks($perks)
+    public function hasAnyPerks($perks): bool
     {
         $perks = collect(is_string($perks) ? func_get_args() : $perks);
 
         return $this->game_perks->map->perk_key->intersect($perks)->count() > 0;
     }
 
-    public function hasAllPerks($perks)
+    public function hasAllPerks($perks): bool
     {
         $perks = collect(is_string($perks) ? func_get_args() : $perks);
 
         return $this->game_perks->map->perk_key->intersect($perks)->count() == $perks->count();
     }
 
-    public function gamePerkConfig()
+    public function gamePerkConfig(): HasOne
     {
         return $this->hasOne(GamePerkConfig::class);
     }
 
-    public function getIsDiscordConnectedAttribute()
+    public function getIsDiscordConnectedAttribute(): bool
     {
         return !empty($this->discord_token)
             && app(Discord::class)->isConnected($this->discord_token);
     }
 
-    public function getDiscordUsernameAttribute()
+    public function getDiscordUsernameAttribute(): ?string
     {
         return app(Discord::class)->getUsername($this->discord_token);
     }
 
-    public function getIsInPolusDiscordAttribute()
+    public function getIsInPolusDiscordAttribute(): bool
     {
         return app(Discord::class)->isInGuild($this->discord_token, config('services.discord.guild_id'));
     }
 
-    public function getDiscordTokenAttribute($token)
+    public function getDiscordTokenAttribute($token): ?string
     {
         if (empty($token)) {
             return null;

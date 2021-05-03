@@ -4,5 +4,5 @@ namespace App\Actions;
 
 interface UpdatesUserConfigInformation
 {
-    public function update($user, array $input);
+    public function update($config, array $input);
 }

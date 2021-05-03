@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\ViewErrorBag;
-use Illuminate\Support\MessageBag;
 use App\Discord\Discord;
 use App\Models\DiscordRole;
 use App\Models\User;
-use Socialite;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\ViewErrorBag;
+use Laravel\Socialite\Facades\Socialite;
 
 class DiscordController extends Controller
 {
