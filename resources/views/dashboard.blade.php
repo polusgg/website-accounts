@@ -21,7 +21,7 @@
                                 </a>
                             </div>
                             <div class="mt-6 text-gray-500 dark:text-gray-50 text-center">
-                                To unlock the full experience of Polus.gg, we highly recommend connecting your Discord account. Connecting your Discord account is a requirement in order to access all of your exclusive in-game perks if you are a Content Creator or a Patreon subscriber. If you are not already supporting Polus.gg and would like to unlock some of these perks, you can subscribe to our <a href="https://patreon.com/polus" target="_blank" class="font-semibold underline text-purple-400 hover:text-purple-500 focus:text-purple-600">Patreon</a>.
+                                To unlock the full experience of Polus.gg, we highly recommend connecting your Discord account. Connecting your Discord account is a requirement in order to access all of your exclusive in-game perks if you are a Content Creator or a Patreon subscriber. If you are not already supporting Polus.gg and would like to unlock some of these perks, you can subscribe to our <a href="https://patreon.com/polus" target="_blank" rel="noopener" class="font-semibold underline text-purple-400 hover:text-purple-500 focus:text-purple-600">Patreon</a>.
                             </div>
                         @endif
                     @else
@@ -31,7 +31,7 @@
                             </a>
                         </div>
                         <div class="mt-6 text-gray-500 dark:text-gray-50 text-center">
-                            To unlock the full experience of Polus.gg, we highly recommend connecting your Discord account. Connecting your Discord account is a requirement in order to access all of your exclusive in-game perks if you are a Content Creator or a Patreon subscriber. If you are not already supporting Polus.gg and would like to unlock some of these perks, you can subscribe to our <a href="https://patreon.com/polus" target="_blank" class="font-semibold underline text-purple-400 hover:text-purple-500 focus:text-purple-600">Patreon</a>
+                            To unlock the full experience of Polus.gg, we highly recommend connecting your Discord account. Connecting your Discord account is a requirement in order to access all of your exclusive in-game perks if you are a Content Creator or a Patreon subscriber. If you are not already supporting Polus.gg and would like to unlock some of these perks, you can subscribe to our <a href="https://patreon.com/polus" target="_blank" rel="noopener" class="font-semibold underline text-purple-400 hover:text-purple-500 focus:text-purple-600">Patreon</a>
                         </div>
                     @endif
                 </div>
@@ -49,7 +49,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             @endif
-                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942972" target="_blank">Supporter</a></div>
+                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942972" target="_blank" rel="noopener">Supporter</a></div>
                         </div>
 
                         <div class="ml-12">
@@ -58,7 +58,7 @@
                                     You have unlocked the Supporter perks!
                                 </div>
                             @else
-                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942972" target="_blank">
+                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942972" target="_blank" rel="noopener">
                                     <div class="mt-3 inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300">
                                         <div>Become a Supporter</div>
 
@@ -88,7 +88,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             @endif
-                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942976" target="_blank">VIP Donator</a></div>
+                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942976" target="_blank" rel="noopener">VIP Donator</a></div>
                         </div>
 
                         <div class="ml-12">
@@ -97,7 +97,7 @@
                                     You have unlocked the VIP Donator perks!
                                 </div>
                             @else
-                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942976" target="_blank">
+                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942976" target="_blank" rel="noopener">
                                     <div class="mt-3 inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300">
                                         <div>Become a VIP Donator</div>
 
@@ -130,7 +130,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             @endif
-                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942983" target="_blank">Elite</a></div>
+                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942983" target="_blank" rel="noopener">Elite</a></div>
                         </div>
 
                         <div class="ml-12">
@@ -139,7 +139,7 @@
                                     You have unlocked the Elite perks!
                                 </div>
                             @else
-                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942983" target="_blank">
+                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942983" target="_blank" rel="noopener">
                                     <div class="mt-3 inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300">
                                         <div>Become an Elite</div>
 
@@ -172,7 +172,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             @endif
-                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942984" target="_blank">Legend</a></div>
+                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942984" target="_blank" rel="noopener">Legend</a></div>
                         </div>
 
                         <div class="ml-12">
@@ -181,7 +181,7 @@
                                     You have unlocked the Legend perks!
                                 </div>
                             @else
-                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942984" target="_blank">
+                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942984" target="_blank" rel="noopener">
                                     <div class="mt-3 inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300">
                                         <div>Become a Legend</div>
 
@@ -217,7 +217,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             @endif
-                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942986" target="_blank">Impostor</a></div>
+                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=6942986" target="_blank" rel="noopener">Impostor</a></div>
                         </div>
 
                         <div class="ml-12">
@@ -226,7 +226,7 @@
                                     You have unlocked the Impostor perks!
                                 </div>
                             @else
-                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942986" target="_blank">
+                                <a href="https://www.patreon.com/join/polus/checkout?rid=6942986" target="_blank" rel="noopener">
                                     <div class="mt-3 inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300">
                                         <div>Become an Impostor</div>
 
@@ -263,7 +263,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                                 </svg>
                             @endif
-                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=7087067" target="_blank">Jester</a></div>
+                            <div class="ml-4 text-lg text-gray-600 dark:text-gray-50 leading-7 font-semibold"><a href="https://www.patreon.com/join/polus/checkout?rid=7087067" target="_blank" rel="noopener">Jester</a></div>
                         </div>
 
                         <div class="ml-12">
@@ -272,7 +272,7 @@
                                     You have unlocked the Jester perks!
                                 </div>
                             @else
-                                <a href="https://www.patreon.com/join/polus/checkout?rid=7087067" target="_blank">
+                                <a href="https://www.patreon.com/join/polus/checkout?rid=7087067" target="_blank" rel="noopener">
                                     <div class="mt-3 inline-flex items-center text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300">
                                         <div>Become a Jester</div>
 
