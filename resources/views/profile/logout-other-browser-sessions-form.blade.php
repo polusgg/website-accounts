@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <div class="max-w-xl text-sm text-gray-600">
+        <div class="max-w-xl text-sm text-gray-600 dark:text-gray-50">
             {{ __('If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.') }}
         </div>
 
@@ -19,29 +19,31 @@
                     <div class="flex items-center">
                         <div>
                             @if ($session->agent->isDesktop())
-                                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8 text-gray-500">
+                                <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8 text-gray-500 dark:text-gray-300">
                                     <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                             @else
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gray-500 dark:text-gray-300">
                                     <path d="M0 0h24v24H0z" stroke="none"></path><rect x="7" y="4" width="10" height="16" rx="1"></rect><path d="M11 5h2M12 17v.01"></path>
                                 </svg>
                             @endif
                         </div>
 
                         <div class="ml-3">
-                            <div class="text-sm text-gray-600">
+                            <div class="text-sm text-gray-600 dark:text-gray-300">
                                 {{ $session->agent->platform() }} - {{ $session->agent->browser() }}
                             </div>
 
                             <div>
-                                <div class="text-xs text-transparent hover:text-gray-500">
-                                    {{ $session->ip_address }}<span class="text-gray-500">,</span>
+{{--                                <div class="text-xs text-transparent hover:text-gray-500 dark:hover:text-gray-300">--}}
+                                <div class="text-xs text-transparent hover:text-gray-500 dark:hover:text-gray-300 bg-gray-500 dark:bg-gray-300 hover:bg-transparent">
+{{--                                    {{ $session->ip_address }}<span class="text-gray-500 dark:text-gray-300">,</span>--}}
+                                    {{ $session->ip_address }}<span class="text-gray-500 dark:text-gray-300 bg-white dark:bg-gray-800">, </span>
 
                                     @if ($session->is_current_device)
-                                        <span class="text-green-500 font-semibold">{{ __('This device') }}</span>
+                                        <span class="text-green-500 dark:text-green-300 font-semibold bg-white dark:bg-gray-800">{{ __('This device') }}</span>
                                     @else
-                                        <span class="text-gray-500">{{ __('Last active') }} {{ $session->last_active }}</span>
+                                        <span class="text-gray-500 dark:text-gray-300 bg-white dark:bg-gray-800">{{ __('Last active') }} {{ $session->last_active }}</span>
                                     @endif
                                 </div>
                             </div>

@@ -10,7 +10,7 @@
     <x-slot name="content">
         <div class="space-y-5">
             @if ($this->user->is_discord_connected)
-                <div class="max-w-xl text-base text-gray-600">
+                <div class="max-w-xl text-base text-gray-600 dark:text-gray-50">
                     <p>{{ __('Logged in as') }} <span class="font-bold">{{ $this->user->discord_username }}</span></p>
                 </div>
             @endif
@@ -18,7 +18,7 @@
             @if ($this->user->discordRoles->isNotEmpty())
                 <div class="space-y-1">
                     @foreach ($this->user->discordRoles as $role)
-                        {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-black" style="background-color: rgba(55, 57, 62, 1); color: {{ $role->rgbColor }};"> --}}
+{{--                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-black" style="background-color: rgba(55, 57, 62, 1); color: {{ $role->rgbColor }};"> --}}
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-bold border-2" style="border-color: {{ $role->rgbColor }};">
                             <svg class="-ml-0.5 mr-1.5 h-2 w-2" style="color: {{ $role->rgbColor }};" fill="currentColor" viewBox="0 0 8 8">
                                 <circle cx="4" cy="4" r="3" />
@@ -38,14 +38,14 @@
                     @endif
 
                     <x-jet-danger-button wire:click="confirmDiscordDisconnection" wire:loading.attr="disabled">
-                        {{ __('Disconnect from Discord') }}
+                        {{ __('Disconnect From Discord') }}
                     </x-jet-danger-button>
                 </div>
 
                 <!-- Disconnect Discord Confirmation Modal -->
                 <x-jet-dialog-modal wire:model="confirmingDiscordDisconnection">
                     <x-slot name="title">
-                        {{ __('Disconnect from Discord') }}
+                        {{ __('Disconnect From Discord') }}
                     </x-slot>
 
                     <x-slot name="content">
@@ -58,7 +58,7 @@
                         </x-jet-secondary-button>
 
                         <x-jet-danger-button class="ml-2" wire:click="disconnectDiscord" wire:loading.attr="disabled">
-                            {{ __('Disconnect from Discord') }}
+                            {{ __('Disconnect From Discord') }}
                         </x-jet-danger-button>
                     </x-slot>
                 </x-jet-dialog-modal>
@@ -66,7 +66,7 @@
                 <div class="flex items-center">
                     <div class="flex flex-col">
                         <div class="w-full">
-                            <a href="{{ route('discord.connect') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                            <a href="{{ route('discord.connect') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-purple-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-purple-800 active:bg-gray-900 dark:active:bg-purple-800 focus:outline-none focus:border-gray-500 dark:focus:border-purple-800 focus:ring focus:ring-gray-300 dark:focus:ring-purple-200 disabled:opacity-25 transition">
                                 {{ __('Connect your Discord account') }}
                             </a>
                         </div>

@@ -241,4 +241,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'refresh_token' => $this->discord_refresh_token,
         ]);
     }
+
+    protected function defaultProfilePhotoUrl()
+    {
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->email).'&color=C3B5FD&background=111827';
+    }
 }

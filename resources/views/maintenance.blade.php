@@ -42,7 +42,7 @@
                 <div class="flex items-center justify-center px-8 sm:px-4">
                     <div class="flex flex-col text-base text-white text-center space-y-2" style="color: #F5F3FF">
                         <p>We're performing some maintenance and will be back shortly.</p>
-                        <p>Come hang out in <a class="underline" href="https://discord.com/polus" target="_blank">our Discord</a> in the mean time!</p>
+                        <p>Come hang out in <a class="underline" href="https://discord.gg/polus" target="_blank">our Discord</a> in the mean time!</p>
                     </div>
                 </div>
             </div>
