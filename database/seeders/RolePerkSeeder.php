@@ -34,6 +34,15 @@ class RolePerkSeeder extends Seeder
         $modKick = GamePerk::where('perk_key', 'mod.kick')->firstOrFail()->id;
         $modBan = GamePerk::where('perk_key', 'mod.ban')->firstOrFail()->id;
 
+        $cosmeticItemCreate = GamePerk::where('perk_key', 'cosmetic.item.create')->firstOrFail()->id;
+        $cosmeticItemUpdate = GamePerk::where('perk_key', 'cosmetic.item.update')->firstOrFail()->id;
+        $cosmeticBundleCreate = GamePerk::where('perk_key', 'cosmetic.bundle.create')->firstOrFail()->id;
+        $cosmeticBundleUpdate = GamePerk::where('perk_key', 'cosmetic.bundle.update')->firstOrFail()->id;
+
+        $purchaseGetAll = GamePerk::where('perk_key', 'purchase.get.all')->firstOrFail()->id;
+        $purchaseAuthenticateAll = GamePerk::where('perk_key', 'purchase.authenticate.all')->firstOrFail()->id;
+        $purchaseUpdate = GamePerk::where('perk_key', 'purchase.update')->firstOrFail()->id;
+
         // Beta Tester
         DiscordRole::where('role_snowflake', '832388858405847081')->firstOrFail()->gamePerks()->sync([
             $serverAccessBeta,
@@ -114,6 +123,10 @@ class RolePerkSeeder extends Seeder
             $lobbySizeTwentyFive,
             $lobbySizeFifty,
             $serverAccessBeta,
+            $cosmeticItemCreate,
+            $cosmeticItemUpdate,
+            $cosmeticBundleCreate,
+            $cosmeticBundleUpdate,
         ]);
 
         // Game Mod
@@ -173,6 +186,13 @@ class RolePerkSeeder extends Seeder
             $creatorManage,
             $modKick,
             $modBan,
+            $cosmeticItemCreate,
+            $cosmeticItemUpdate,
+            $cosmeticBundleCreate,
+            $cosmeticBundleUpdate,
+            $purchaseGetAll,
+            $purchaseAuthenticateAll,
+            $purchaseUpdate,
         ]);
     }
 }

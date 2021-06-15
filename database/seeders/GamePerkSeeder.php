@@ -86,6 +86,42 @@ class GamePerkSeeder extends Seeder
                 'perk_key' => 'mod.ban',
                 'display_name' => 'Ban players from a game',
             ],
+
+            /**
+             * Cosmetic perks
+             */
+            [
+                'perk_key' => 'cosmetic.item.create',
+                'display_name' => 'Ability to create cosmetic items',
+            ],
+            [
+                'perk_key' => 'cosmetic.item.update',
+                'display_name' => 'Ability to update cosmetic items',
+            ],
+            [
+                'perk_key' => 'cosmetic.bundle.create',
+                'display_name' => 'Ability to create cosmetic item bundles',
+            ],
+            [
+                'perk_key' => 'cosmetic.bundle.update',
+                'display_name' => 'Ability to update cosmetic item bundles',
+            ],
+
+            /**
+             * Purchase perks
+             */
+            [
+                'perk_key' => 'purchase.get.all',
+                'display_name' => 'Ability to get information about any purchase',
+            ],
+            [
+                'perk_key' => 'purchase.authenticate.all',
+                'display_name' => 'Ability to forcibly verify any purchase',
+            ],
+            [
+                'perk_key' => 'purchase.update',
+                'display_name' => 'Ability to update purchases',
+            ],
         ];
 
         collect($perks)->map(fn($perk) => GamePerk::create($perk));
