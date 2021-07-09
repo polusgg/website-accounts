@@ -23,7 +23,7 @@ class UserResource extends JsonResource
                 'banned_until' => $this->is_banned ? $this->activeBan->banned_until : null,
                 'perks' => GamePerkResource::collection($this->gamePerks),
                 'settings' => new GamePerkConfigResource($this->gamePerkConfig),
-                'options' => new GameConfigResource($this->gameConfig ?? []),
+                'options' => new GameConfigResource($this->gameConfig),
             ],
         ];
     }
