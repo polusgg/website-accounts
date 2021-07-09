@@ -18,7 +18,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable// implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'discord_expires_at' => 'datetime',
     ];
 
-    protected $with = ['discordRoles', 'activeBan', 'gamePerkConfig'];
+    protected $with = ['discordRoles', 'activeBan', 'gamePerkConfig', 'gameConfig'];
 
     public static function booted()
     {
@@ -187,6 +187,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function gamePerkConfig(): HasOne
     {
         return $this->hasOne(GamePerkConfig::class);
+    }
+
+    public function gameConfig(): HasOne
+    {
+        return $this->hasOne(GameConfig::class);
     }
 
     public function getIsDiscordConnectedAttribute(): bool

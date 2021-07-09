@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Discord\Discord;
 use App\Models\DiscordRole;
+use App\Models\GameConfig;
 use App\Models\KickBanLog;
 use App\Models\User;
 use App\Http\Resources\ErrorResource;
@@ -32,6 +33,13 @@ class PrivateApiController extends Controller
         );
 
         $user->discordRoles()->sync($userRoles);
+
+        return new SuccessResource();
+    }
+
+    public function updateGameConfig(User $user, Request $request)
+    {
+        $user->gameConfig()->updateOrCreate(['user_id' => $user->id], ['config' => $request->json()->all()]);
 
         return new SuccessResource();
     }
