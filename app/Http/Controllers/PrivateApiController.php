@@ -21,6 +21,11 @@ class PrivateApiController extends Controller
         return new UserResource($user);
     }
 
+    public function getUserByDiscordId(User $user)
+    {
+        return new UserResource($user);
+    }
+
     public function updateDiscordRoles(User $user)
     {
         $discordRoles = DiscordRole::all();
