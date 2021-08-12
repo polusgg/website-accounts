@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'discord_expires_at' => 'datetime',
     ];
 
-    protected $with = ['discordRoles', 'activeBan', 'gamePerkConfig', 'gameConfig'];
+    protected $with = ['discordRoles', 'activeBan', 'activeMute', 'gamePerkConfig', 'gameConfig'];
 
     public static function booted()
     {
@@ -153,7 +153,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function activeBan(): HasOne
     {
         return $this->hasOne(KickBanLog::class, 'target_user_id')
-                    ->orderByDesc('banned_until')
+                    ->orderByRaw('(banned_until IS NOT NULL), banned_until DESC')
                     ->latest();
     }
 
@@ -162,7 +162,32 @@ class User extends Authenticatable implements MustVerifyEmail
         $activeBan = $this->activeBan;
 
         return !is_null($activeBan)
-            && Carbon::now()->lt($activeBan->banned_until);
+            && (is_null($activeBan->banned_until) || Carbon::now()->lt($activeBan->banned_until));
+    }
+
+    public function mutesFrom(): HasMany
+    {
+        return $this->hasMany(GameMute::class, 'acting_user_id');
+    }
+
+    public function mutesAgainst(): HasMany
+    {
+        return $this->hasMany(GameMute::class, 'target_user_id');
+    }
+
+    public function activeMute(): HasOne
+    {
+        return $this->hasOne(GameMute::class, 'target_user_id')
+                    ->orderByRaw('(muted_until IS NOT NULL), muted_until DESC')
+                    ->latest();
+    }
+
+    public function getIsMutedAttribute(): bool
+    {
+        $activeMute = $this->activeMute;
+
+        return !is_null($activeMute)
+            && (is_null($activeMute->muted_until) || Carbon::now()->lt($activeMute->muted_until));
     }
 
     public function getGamePerksAttribute()

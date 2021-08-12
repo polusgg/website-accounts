@@ -19,5 +19,6 @@ Route::middleware('auth:api-private')->prefix('v1')->group(function () {
     Route::prefix('logs')->group(function () {
         Route::put('kick', [PrivateApiController::class, 'logKick']);
         Route::put('ban', [PrivateApiController::class, 'logBan']);
+        Route::put('mute', [PrivateApiController::class, 'logMute']);
     });
 });

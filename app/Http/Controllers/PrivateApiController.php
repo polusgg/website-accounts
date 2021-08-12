@@ -6,6 +6,7 @@ use App\Discord\Discord;
 use App\Models\DiscordRole;
 use App\Models\GameConfig;
 use App\Models\KickBanLog;
+use App\Models\GameMute;
 use App\Models\User;
 use App\Http\Resources\ErrorResource;
 use App\Http\Resources\SuccessResource;
@@ -118,55 +119,142 @@ class PrivateApiController extends Controller
             return response()->json(new ErrorResource('Missing reason'), 400);
         }
 
-        if (!$request->filled('duration')) {
+        if (!$request->has('duration')) {
             return response()->json(new ErrorResource('Missing duration'), 400);
         }
 
-        $duration = Str::of($request->post('duration'))->match('/([1-9][0-9]*[w|d|h]?)/i');
+        $durationRaw = $request->post('duration');
+        $hours = null;
 
-        if ($duration->isEmpty()) {
-            return response()->json(new ErrorResource('Invalid duration format'), 400);
+        if (!is_null($durationRaw)) {
+            $hours = 1;
+            $duration = Str::of($durationRaw)->match('/([1-9][0-9]*[w|d|h]?)/i');
+
+            if ($duration->isEmpty()) {
+                return response()->json(new ErrorResource('Invalid duration format'), 400);
+            }
+
+            switch ($duration->substr(-1)) {
+                case 'w':
+                    $hours *= 7;
+                    // fallthrough
+                case 'd':
+                    $hours *= 24;
+                    // fallthrough
+                case 'h':
+                    $duration = $duration->substr(0, -1);
+                    // fallthrough
+                default:
+                    $hours *= (int) (string) $duration;
+            }
         }
 
         $actor = User::where('uuid', $actorUuid)->first();
-        $target = User::where('uuid', $targetUuid)->first();
 
         if (is_null($actor)) {
             return response()->json(new ErrorResource('Actor does not exist'), 400);
         }
 
+        $target = User::where('uuid', $targetUuid)->first();
+
         if (is_null($target)) {
             return response()->json(new ErrorResource('Target does not exist'), 400);
-        }
-
-        $hours = 1;
-
-        switch ($duration->substr(-1)) {
-            case 'w':
-                $hours *= 7;
-                // fallthrough
-            case 'd':
-                $hours *= 24;
-                // fallthrough
-            case 'h':
-                $duration = $duration->substr(0, -1);
-                // fallthrough
-            default:
-                $hours *= (int) (string) $duration;
         }
 
         $log = new KickBanLog();
 
         $log->game_uuid = $gameUuid;
         $log->is_ban = true;
-        $log->banned_until = Carbon::now()->addHours($hours);
+        $log->banned_until = is_null($hours) ? null : Carbon::now()->addHours($hours);
         $log->reason = $request->post('reason');
 
         $log->actingUser()->associate($actor);
         $log->targetUser()->associate($target);
 
         if ($log->save()) {
-            return new SuccessResource(['duration_hours' => $hours]);
+            return new SuccessResource(['duration_hours' => $hours ?? -1]);
+        }
+
+        return response()->json(new ErrorResource('An unknown error occurred'), 500);
+    }
+
+    public function logMute(Request $request)
+    {
+        $gameUuid = $request->post('game_uuid');
+
+        if (!Str::isUuid($gameUuid)) {
+            return response()->json(new ErrorResource('Missing or invalid game_uuid'), 400);
+        }
+
+        $actorUuid = $request->post('actor_uuid');
+
+        if (!Str::isUuid($actorUuid)) {
+            return response()->json(new ErrorResource('Missing or invalid actor_uuid'), 400);
+        }
+
+        $targetUuid = $request->post('target_uuid');
+
+        if (!Str::isUuid($targetUuid)) {
+            return response()->json(new ErrorResource('Missing or invalid target_uuid'), 400);
+        }
+
+        if (!$request->filled('reason')) {
+            return response()->json(new ErrorResource('Missing reason'), 400);
+        }
+
+        if (!$request->has('duration')) {
+            return response()->json(new ErrorResource('Missing duration'), 400);
+        }
+
+        $durationRaw = $request->post('duration');
+        $hours = null;
+
+        if (!is_null($durationRaw)) {
+            $hours = 1;
+            $duration = Str::of($durationRaw)->match('/([1-9][0-9]*[w|d|h]?)/i');
+
+            if ($duration->isEmpty()) {
+                return response()->json(new ErrorResource('Invalid duration format'), 400);
+            }
+
+            switch ($duration->substr(-1)) {
+                case 'w':
+                    $hours *= 7;
+                    // fallthrough
+                case 'd':
+                    $hours *= 24;
+                    // fallthrough
+                case 'h':
+                    $duration = $duration->substr(0, -1);
+                    // fallthrough
+                default:
+                    $hours *= (int) (string) $duration;
+            }
+        }
+
+        $actor = User::where('uuid', $actorUuid)->first();
+
+        if (is_null($actor)) {
+            return response()->json(new ErrorResource('Actor does not exist'), 400);
+        }
+
+        $target = User::where('uuid', $targetUuid)->first();
+
+        if (is_null($target)) {
+            return response()->json(new ErrorResource('Target does not exist'), 400);
+        }
+
+        $log = new GameMute();
+
+        $log->game_uuid = $gameUuid;
+        $log->muted_until = is_null($hours) ? null : Carbon::now()->addHours($hours);
+        $log->reason = $request->post('reason');
+
+        $log->actingUser()->associate($actor);
+        $log->targetUser()->associate($target);
+
+        if ($log->save()) {
+            return new SuccessResource(['duration_hours' => $hours ?? -1]);
         }
 
         return response()->json(new ErrorResource('An unknown error occurred'), 500);
