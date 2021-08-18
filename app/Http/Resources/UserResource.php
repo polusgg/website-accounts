@@ -30,6 +30,7 @@ class UserResource extends JsonResource
                 'perks' => GamePerkResource::collection($this->gamePerks),
                 'settings' => new GamePerkConfigResource($this->gamePerkConfig),
                 'options' => new GameConfigResource($this->gameConfig),
+                'cosmetics' => new CosmeticConfigResource($this->cosmeticConfig),
             ],
         ];
     }

@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'discord_expires_at' => 'datetime',
     ];
 
-    protected $with = ['discordRoles', 'activeBan', 'activeMute', 'gamePerkConfig', 'gameConfig'];
+    protected $with = ['discordRoles', 'activeBan', 'activeMute', 'gamePerkConfig', 'gameConfig', 'cosmeticConfig'];
 
     public static function booted()
     {
@@ -232,6 +232,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function gameConfig(): HasOne
     {
         return $this->hasOne(GameConfig::class);
+    }
+
+    public function cosmeticConfig(): HasOne
+    {
+        return $this->hasOne(CosmeticConfig::class);
     }
 
     public function getIsDiscordConnectedAttribute(): bool

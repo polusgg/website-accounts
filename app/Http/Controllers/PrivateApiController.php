@@ -142,6 +142,13 @@ class PrivateApiController extends Controller
         return response()->json(new ErrorResource('An unknown error occurred'), 500);
     }
 
+    public function updateUserCosmetics(User $user, Request $request)
+    {
+        $user->cosmeticConfig()->updateOrCreate(['user_id' => $user->id], ['config' => $request->json()->all()]);
+
+        return new SuccessResource();
+    }
+
     public function logKick(Request $request)
     {
         if (!$request->has('game_uuid')) {
