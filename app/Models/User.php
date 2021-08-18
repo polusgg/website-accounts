@@ -140,19 +140,34 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->discordRoles->map->display_name->intersect($roles)->count() == $roles->count();
     }
 
+    public function kicksFrom(): HasMany
+    {
+        return $this->hasMany(KickBanLog::class, 'acting_user_id')
+                    ->where('is_ban', false);
+    }
+
+    public function kicksAgainst(): HasMany
+    {
+        return $this->hasMany(KickBanLog::class, 'target_user_id')
+                    ->where('is_ban', false);
+    }
+
     public function bansFrom(): HasMany
     {
-        return $this->hasMany(KickBanLog::class, 'acting_user_id');
+        return $this->hasMany(KickBanLog::class, 'acting_user_id')
+                    ->where('is_ban', true);
     }
 
     public function bansAgainst(): HasMany
     {
-        return $this->hasMany(KickBanLog::class, 'target_user_id');
+        return $this->hasMany(KickBanLog::class, 'target_user_id')
+                    ->where('is_ban', true);
     }
 
     public function activeBan(): HasOne
     {
         return $this->hasOne(KickBanLog::class, 'target_user_id')
+                    ->where('is_ban', true)
                     ->orderByRaw('(banned_until IS NOT NULL), banned_until DESC')
                     ->latest();
     }

@@ -22,6 +22,78 @@ class PrivateApiController extends Controller
         return new UserResource($user);
     }
 
+    public function getKicksFrom(User $user)
+    {
+        return $user->kicksFrom()->with([
+            'actingUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+            'targetUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+        ])->orderByDesc('id')->paginate(15);
+    }
+
+    public function getKicksAgainst(User $user)
+    {
+        return $user->kicksAgainst()->with([
+            'actingUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+            'targetUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+        ])->orderByDesc('id')->paginate(15);
+    }
+
+    public function getBansFrom(User $user)
+    {
+        return $user->bansFrom()->with([
+            'actingUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+            'targetUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+        ])->orderByDesc('id')->paginate(15);
+    }
+
+    public function getBansAgainst(User $user)
+    {
+        return $user->bansAgainst()->with([
+            'actingUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+            'targetUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+        ])->orderByDesc('id')->paginate(15);
+    }
+
+    public function getMutesFrom(User $user)
+    {
+        return $user->mutesFrom()->with([
+            'actingUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+            'targetUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+        ])->orderByDesc('id')->paginate(15);
+    }
+
+    public function getMutesAgainst(User $user)
+    {
+        return $user->mutesAgainst()->with([
+            'actingUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+            'targetUser' => function ($q) {
+                $q->select('id', 'uuid', 'display_name');
+            },
+        ])->orderByDesc('id')->paginate(15);
+    }
+
     public function updateDiscordRoles(User $user)
     {
         $discordRoles = DiscordRole::all();

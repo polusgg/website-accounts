@@ -18,7 +18,19 @@ Route::middleware('auth:api-private')->prefix('v1')->group(function () {
 
     Route::prefix('logs')->group(function () {
         Route::put('kick', [PrivateApiController::class, 'logKick']);
+        Route::get('kick/{user}/from', [PrivateApiController::class, 'getKicksFrom'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::get('kick/{user}/against', [PrivateApiController::class, 'getKicksAgainst'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::put('ban', [PrivateApiController::class, 'logBan']);
+        Route::get('ban/{user}/from', [PrivateApiController::class, 'getBansFrom'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::get('ban/{user}/against', [PrivateApiController::class, 'getBansAgainst'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::put('mute', [PrivateApiController::class, 'logMute']);
+        Route::get('mute/{user}/from', [PrivateApiController::class, 'getMutesFrom'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::get('mute/{user}/against', [PrivateApiController::class, 'getMutesAgainst'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
     });
 });
