@@ -151,12 +151,8 @@
                             @endif
 
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-50">
-                                Everything from <span class="font-bold">VIP Donator</span> and more:
+                                Everything from <span class="font-bold">VIP Donator</span>
                             </p>
-
-                            <ul class="mt-2 text-sm text-gray-500 dark:text-gray-50 list-disc list-outside lg:list-inside">
-                                <li>Among Us player name is colored gold (can be turned off)</li>
-                            </ul>
                         </div>
                     </div>
 
@@ -197,8 +193,6 @@
                             </p>
 
                             <ul class="mt-2 text-sm text-gray-500 dark:text-gray-50 list-disc list-outside lg:list-inside">
-                                <li>Ability to host Among Us lobbies with up to 25 players</li>
-                                <li>Among Us player name color matches your player color (can be turned off)</li>
                                 <li>Access to a Discord channel with staff members to pitch ideas</li>
                                 <li>Sneak peeks at future ideas and releases</li>
                             </ul>
@@ -242,9 +236,6 @@
                             </p>
 
                             <ul class="mt-2 text-sm text-gray-500 dark:text-gray-50 list-disc list-outside lg:list-inside">
-                                <li>Ability to host Among Us lobbies with up to 50 players</li>
-                                <li>Custom 4 or 6 letter Among Us lobby codes</li>
-                                <li>Custom Among Us player color using an RGB color picker</li>
                                 <li>Voting power on future updates</li>
                                 <li>An emote of your choice in our Discord server (it must follow Discord ToS as well as our server rules, and you must provide the emote)</li>
                             </ul>
@@ -288,7 +279,6 @@
                             </p>
 
                             <ul class="mt-2 text-sm text-gray-500 dark:text-gray-50 list-disc list-outside lg:list-inside">
-                                <li>Ability to host Among Us lobbies with up to 100 players</li>
                                 <li>A role of your choice gets implemented into Town of Polus (it must be approved by us)</li>
                                 <li>Your name in the Polus.gg credits screen</li>
                             </ul>
