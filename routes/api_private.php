@@ -8,6 +8,8 @@ Route::middleware('auth:api-private')->prefix('v1')->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('{user}', [PrivateApiController::class, 'getUser'])
             ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::get('name/{user:display_name}', [PrivateApiController::class, 'getUser'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::get('discord/{user:discord_snowflake}', [PrivateApiController::class, 'getUser'])
             ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::post('discord/{user:discord_snowflake}/roles', [PrivateApiController::class, 'updateDiscordRoles'])
