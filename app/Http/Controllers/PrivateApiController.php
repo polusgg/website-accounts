@@ -8,12 +8,14 @@ use App\Models\GameConfig;
 use App\Models\KickBanLog;
 use App\Models\GameMute;
 use App\Models\User;
+use App\Rules\NotOffensive;
 use App\Http\Resources\ErrorResource;
 use App\Http\Resources\SuccessResource;
 use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PrivateApiController extends Controller
 {
@@ -115,6 +117,29 @@ class PrivateApiController extends Controller
         $user->gameConfig()->updateOrCreate(['user_id' => $user->id], ['config' => $request->json()->all()]);
 
         return new SuccessResource();
+    }
+
+    public function updateUserName(User $user, Request $request)
+    {
+        $validated = $request->validate([
+            'display_name' => [
+                'required',
+                'string',
+                'between:3,16',
+                'regex:/^[ 0-9a-zA-Z\x{00c0}-\x{00ff}\x{0400}-\x{045f}\x{3131}-\x{318e}\x{ac00}-\x{d7a3}]{3,16}$/u',
+                'not_regex:/^' . config('app.blocked_names') . '$/i',
+                Rule::unique('users')->ignore($user->id),
+                new NotOffensive('display name', 'names'),
+            ],
+        ]);
+
+        $user->display_name = $validated['display_name'];
+
+        if ($user->save()) {
+            return new SuccessResource();
+        }
+
+        return response()->json(new ErrorResource('An unknown error occurred'), 500);
     }
 
     public function logKick(Request $request)

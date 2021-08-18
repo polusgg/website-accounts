@@ -16,6 +16,8 @@ Route::middleware('auth:api-private')->prefix('v1')->group(function () {
             ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::put('{user}/options', [PrivateApiController::class, 'updateGameConfig'])
             ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::patch('update/{user}/name', [PrivateApiController::class, 'updateUserName'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
     });
 
     Route::prefix('logs')->group(function () {
