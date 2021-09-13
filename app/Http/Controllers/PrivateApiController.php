@@ -205,7 +205,15 @@ class PrivateApiController extends Controller
 
     public function logBan(Request $request)
     {
+        if (!$request->has('game_uuid')) {
+            return response()->json(new ErrorResource('Missing game_uuid'), 400);
+        }
+
         $gameUuid = $request->post('game_uuid');
+
+        if (!is_null($gameUuid) && !Str::isUuid($gameUuid)) {
+            return response()->json(new ErrorResource('Invalid game_uuid'), 400);
+        }
 
         $actorUuid = $request->post('actor_uuid');
 
@@ -284,7 +292,15 @@ class PrivateApiController extends Controller
 
     public function logMute(Request $request)
     {
+        if (!$request->has('game_uuid')) {
+            return response()->json(new ErrorResource('Missing game_uuid'), 400);
+        }
+
         $gameUuid = $request->post('game_uuid');
+
+        if (!is_null($gameUuid) && !Str::isUuid($gameUuid)) {
+            return response()->json(new ErrorResource('Invalid game_uuid'), 400);
+        }
 
         $actorUuid = $request->post('actor_uuid');
 
