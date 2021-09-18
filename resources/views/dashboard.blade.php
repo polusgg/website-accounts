@@ -13,7 +13,7 @@
                         <p>Welcome to your Polus.gg account</p>
                     </div>
 
-                    @if (auth()->user()->is_discord_connected)
+                    {{-- @if (auth()->user()->is_discord_connected)
                         @if (!auth()->user()->is_in_polus_discord)
                             <div class="mt-6 flex items-center justify-center">
                                 <a href="{{ route('discord.join') }}" class="inline-flex items-center px-4 py-2 bg-purple-700 border border-transparent rounded-md font-semibold text-sm font-bold text-white uppercase tracking-widest hover:bg-purple-800 active:bg-purple-900 focus:outline-none focus:border-purple-600 focus:ring focus:ring-purple-500 disabled:opacity-25 transition shadow-lg">
@@ -33,11 +33,10 @@
                         <div class="mt-6 text-gray-500 dark:text-gray-50 text-center">
                             To unlock the full experience of Polus.gg, we highly recommend connecting your Discord account. Connecting your Discord account is a requirement in order to access all of your exclusive in-game perks if you are a Content Creator or a Patreon subscriber. If you are not already supporting Polus.gg and would like to unlock some of these perks, you can subscribe to our <a href="https://patreon.com/polus" target="_blank" rel="noopener" class="font-semibold underline text-purple-400 hover:text-purple-500 focus:text-purple-600">Patreon</a>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
 
-                <div class="bg-gray-200 dark:bg-gray-800 bg-opacity-25 dark:bg-opacity-100 grid grid-cols-1 md:grid-cols-2">
-                    {{-- Supporter --}}
+                {{-- <div class="bg-gray-200 dark:bg-gray-800 bg-opacity-25 dark:bg-opacity-100 grid grid-cols-1 md:grid-cols-2">
                     <div class="p-6">
                         <div class="flex items-center">
                             @if (auth()->user()->hasAnyDiscordRoles('Supporter', 'VIP Donator', 'Elite', 'Legend', 'Impostor', 'Jester'))
@@ -76,7 +75,6 @@
                         </div>
                     </div>
 
-                    {{-- VIP Donator --}}
                     <div class="p-6 border-t border-gray-200 dark:border-gray-900 md:border-t-0 md:border-l">
                         <div class="flex items-center">
                             @if (auth()->user()->hasAnyDiscordRoles('VIP Donator', 'Elite', 'Legend', 'Impostor', 'Jester'))
@@ -118,7 +116,6 @@
                         </div>
                     </div>
 
-                    {{-- Elite --}}
                     <div class="p-6 border-t border-gray-200 dark:border-gray-900">
                         <div class="flex items-center">
                             @if (auth()->user()->hasAnyDiscordRoles('Elite', 'Legend', 'Impostor', 'Jester'))
@@ -156,7 +153,6 @@
                         </div>
                     </div>
 
-                    {{-- Legend --}}
                     <div class="p-6 border-t border-gray-200 dark:border-gray-900 md:border-l">
                         <div class="flex items-center">
                             @if (auth()->user()->hasAnyDiscordRoles('Legend', 'Impostor', 'Jester'))
@@ -199,7 +195,6 @@
                         </div>
                     </div>
 
-                    {{-- Impostor --}}
                     <div class="p-6 border-t border-gray-200 dark:border-gray-900">
                         <div class="flex items-center">
                             @if (auth()->user()->hasAnyDiscordRoles('Impostor', 'Jester'))
@@ -242,7 +237,6 @@
                         </div>
                     </div>
 
-                    {{-- Jester --}}
                     <div class="p-6 border-t border-gray-200 dark:border-gray-900 md:border-l">
                         <div class="flex items-center">
                             @if (auth()->user()->hasAnyDiscordRoles('Jester'))
@@ -285,7 +279,6 @@
                         </div>
                     </div>
 
-                    {{-- Creator --}}
                     @if (auth()->user()->hasAnyDiscordRoles('Creator', 'Creator Manager'))
                         <div class="p-6 border-t border-gray-200 dark:border-gray-900">
                             <div class="flex items-center">
@@ -314,7 +307,7 @@
                             </div>
                         </div>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
