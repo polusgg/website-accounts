@@ -20,6 +20,8 @@ class UserResource extends JsonResource
                 'client_id' => $this->uuid,
                 'client_token' => $this->api_token,
                 'discord_id' => $this->discord_snowflake,
+                'email' => $this->email,
+                'email_verified_at' => $this->email_verified_at,
                 'display_name' => $this->display_name,
                 'created_at' => $this->created_at,
                 'name_change_available_at' => $this->name_change_available_at,
