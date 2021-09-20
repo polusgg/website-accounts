@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Rules\NotOffensive;
 use App\Http\Resources\ErrorResource;
 use App\Http\Resources\SuccessResource;
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,9 +20,36 @@ use Illuminate\Validation\Rule;
 
 class PrivateApiController extends Controller
 {
+    public function getWatchlist()
+    {
+        return new UserCollection(User::where('watchlisted', true)->get());
+    }
+
     public function getUser(User $user)
     {
         return new UserResource($user);
+    }
+
+    public function addToWatchlist(User $user)
+    {
+        $user->watchlisted = true;
+
+        if ($user->save()) {
+            return new SuccessResource();
+        }
+
+        return response()->json(new ErrorResource('An unknown error occurred'), 500);
+    }
+
+    public function removeFromWatchlist(User $user)
+    {
+        $user->watchlisted = false;
+
+        if ($user->save()) {
+            return new SuccessResource();
+        }
+
+        return response()->json(new ErrorResource('An unknown error occurred'), 500);
     }
 
     public function getKicksFrom(User $user)

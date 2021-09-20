@@ -6,7 +6,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api-private')->prefix('v1')->group(function () {
     Route::prefix('users')->group(function () {
+        Route::get('watchlist', [PrivateApiController::class, 'getWatchlist'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::get('{user}', [PrivateApiController::class, 'getUser'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::patch('{user}/watch', [PrivateApiController::class, 'addToWatchlist'])
+            ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
+        Route::delete('{user}/watch', [PrivateApiController::class, 'removeFromWatchlist'])
             ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));
         Route::get('name/{user:display_name}', [PrivateApiController::class, 'getUser'])
             ->missing(fn() => response()->json(new ErrorResource('User not found'), 404));

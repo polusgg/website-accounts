@@ -59,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
+        'watchlisted' => 'boolean',
         'is_creator' => 'boolean',
         'name_change_available_at' => 'datetime',
         'email_verified_at' => 'datetime',

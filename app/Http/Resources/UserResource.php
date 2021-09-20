@@ -25,6 +25,7 @@ class UserResource extends JsonResource
                 'display_name' => $this->display_name,
                 'created_at' => $this->created_at,
                 'name_change_available_at' => $this->name_change_available_at,
+                'watchlisted' => $this->watchlisted,
                 'banned' => $this->is_banned,
                 'banned_until' => $this->is_banned ? $this->activeBan->banned_until : null,
                 'muted' => $this->is_muted,
