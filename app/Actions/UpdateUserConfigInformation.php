@@ -2,6 +2,8 @@
 
 namespace App\Actions;
 
+use App\Models\User;
+use App\Rules\ValidLanguage;
 use App\Rules\CanChangeNameColor;
 use App\Rules\NotOffensive;
 use Illuminate\Support\Facades\Validator;
@@ -36,6 +38,29 @@ class UpdateUserConfigInformation implements UpdatesUserConfigInformation
             'lobby_code_custom_value' => $input['lobby_code_custom_value'],
             'name_color_gold_enabled' => $input['name_color'] == 'gold',
             'name_color_match_enabled' => $input['name_color'] == 'match',
+        ])->save();
+    }
+
+    /**
+     * @param User $user
+     * @param string $language
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function updateLanguage(User $user, string $language)
+    {
+        Validator::make(
+            ['game_language' => $language],
+            [
+                'game_language' => [
+                    'required',
+                    new ValidLanguage(),
+                ],
+            ],
+        )->validateWithBag('updateConfigInformation');
+
+        $user->forceFill([
+            'language' => $language,
         ])->save();
     }
 }

@@ -8,6 +8,7 @@ use Livewire\Component;
 class UpdateConfigForm extends Component
 {
     public array $state = [];
+    public string $game_language;
 
     public function mount()
     {
@@ -15,6 +16,7 @@ class UpdateConfigForm extends Component
         $this->state['name_color'] = $this->state['name_color_match_enabled'] ? "match"
                                    : ($this->state['name_color_gold_enabled'] ? "gold"
                                    : "normal");
+        $this->game_language = $this->user->language;
     }
 
     public function updateConfig(UpdateUserConfigInformation $updater)
@@ -22,6 +24,7 @@ class UpdateConfigForm extends Component
         $this->resetErrorBag();
 
         $updater->update(auth()->user()->gamePerkConfig, $this->state);
+        $updater->updateLanguage($this->user, $this->game_language);
 
         $this->emit('saved');
     }
@@ -33,6 +36,6 @@ class UpdateConfigForm extends Component
 
     public function render()
     {
-        return view('profile.update-config-form');
+        return view('profile.update-config-form')->with('languages', config('languages'));
     }
 }

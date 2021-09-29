@@ -4,10 +4,20 @@
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Change the settings for your unlocked in-game perks.') }}
+        {{ __('Change some of your in-game settings.') }}
     </x-slot>
 
     <x-slot name="form">
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="game_language" value="{{ __('Language') }}" />
+            <select id="game_language" type="text" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:border-purple-300 dark:focus:border-purple-500 focus:ring focus:ring-purple-200 dark:focus:ring-purple-600 focus:ring-opacity-50 dark:focus:ring-opacity-100 rounded-md shadow-sm" wire:model.defer="game_language" autocomplete="game_language">
+                @foreach ($languages as $languageKey => $languageName)
+                    <option value="{{ $languageKey }}">{{ $languageName }}</option>
+                @endforeach
+            </select>
+            <x-jet-input-error for="game_language" class="mt-2" />
+        </div>
+
         @if ($this->user->hasAnyPerks('lobby.code.custom'))
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="lobby_code_custom_value" value="{{ __('Custom Lobby Code') }}" />

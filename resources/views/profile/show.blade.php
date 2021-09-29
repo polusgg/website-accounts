@@ -11,13 +11,11 @@
 
             <x-jet-section-border />
 
-            @if (auth()->user()->hasAnyPerks('lobby.code.custom', 'name.color.gold', 'name.color.match'))
-                <div class="mt-10 sm:mt-0">
-                    @livewire('update-config-form')
-                </div>
+            <div class="mt-10 sm:mt-0">
+                @livewire('update-config-form')
+            </div>
 
-                <x-jet-section-border />
-            @endif
+            <x-jet-section-border />
 
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 <div class="mt-10 sm:mt-0">
