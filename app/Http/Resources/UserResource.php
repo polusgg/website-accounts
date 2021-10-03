@@ -31,6 +31,7 @@ class UserResource extends JsonResource
                 'muted' => $this->is_muted,
                 'muted_until' => $this->is_muted ? $this->activeMute->muted_until : null,
                 'language' => $this->language,
+                'pronouns' => $this->pronouns,
                 'perks' => GamePerkResource::collection($this->gamePerks),
                 'settings' => new GamePerkConfigResource($this->gamePerkConfig),
                 'options' => new GameConfigResource($this->gameConfig),

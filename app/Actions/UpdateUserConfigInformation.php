@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Models\User;
 use App\Rules\ValidLanguage;
+use App\Rules\ValidPronouns;
 use App\Rules\CanChangeNameColor;
 use App\Rules\NotOffensive;
 use Illuminate\Support\Facades\Validator;
@@ -12,13 +13,14 @@ use Illuminate\Validation\Rule;
 class UpdateUserConfigInformation implements UpdatesUserConfigInformation
 {
     /**
-     * @param mixed $config
+     * @param User $user
      * @param array $input
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update($config, array $input)
+    public function update($user, array $input)
     {
+        $config = $user->gamePerkConfig;
         $input['lobby_code_custom_value'] = strtoupper(trim($input['lobby_code_custom_value']));
 
         Validator::make($input, [
@@ -32,6 +34,14 @@ class UpdateUserConfigInformation implements UpdatesUserConfigInformation
                 'required',
                 new CanChangeNameColor(),
             ],
+            'language' => [
+                'required',
+                new ValidLanguage(),
+            ],
+            'pronouns' => [
+                'required',
+                new ValidPronouns(),
+            ]
         ])->validateWithBag('updateConfigInformation');
 
         $config->forceFill([
@@ -39,28 +49,10 @@ class UpdateUserConfigInformation implements UpdatesUserConfigInformation
             'name_color_gold_enabled' => $input['name_color'] == 'gold',
             'name_color_match_enabled' => $input['name_color'] == 'match',
         ])->save();
-    }
-
-    /**
-     * @param User $user
-     * @param string $language
-     * @return void
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function updateLanguage(User $user, string $language)
-    {
-        Validator::make(
-            ['game_language' => $language],
-            [
-                'game_language' => [
-                    'required',
-                    new ValidLanguage(),
-                ],
-            ],
-        )->validateWithBag('updateConfigInformation');
 
         $user->forceFill([
-            'language' => $language,
+            'language' => $input['language'],
+            'pronouns' => $input['pronouns'],
         ])->save();
     }
 }
